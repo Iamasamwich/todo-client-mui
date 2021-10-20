@@ -1,8 +1,10 @@
 interface Body {
   todo?: string;
   step?: string;
-  done: boolean;
+  done?: boolean;
   dueDate?: string;
+  email?: string;
+  pword?: string;
 };
 
 const host = 'http://localhost:3000';

@@ -1,4 +1,4 @@
-import api from "../api";
+import api from "../api/api";
 
 export const ping = async () => {
   return await api('/ping', 'GET')

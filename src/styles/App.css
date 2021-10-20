@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #root {
@@ -11,9 +12,135 @@
   width: 100vw;
 }
 
+h1 {
+  margin: 15px;
+  font-size: 4em;
+  font-weight: bold;
+}
+
+p {
+  margin-top: 15px;
+  display: inline-block;
+  text-align: center;
+  font-size: 25px;
+}
+
+.fake-link {
+  color: rgb(62, 62, 247);
+  text-decoration: underline;
+}
+
+.fake-link:hover {
+  color: blue;
+  cursor: pointer
+}
+
+.green {
+  background-color: rgb(117, 224, 117);
+}
+
+.red {
+  background-color: rgb(224, 117, 117);
+}
+
 .App {
-  max-width: 768px;
+  max-width: 960px;
   width: 100%;
   height: 100%;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.Logo {
+  width: 800px;
+  height: 300px;
+  background-color: cadetblue;
+}
+
+.minusLogo {
+  height: calc(100vh - 300px);
+  width: 100%;
+}
+
+.Login {
+  background: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.form-box > label {
+  font-size: 25px;
+  margin-top: 15px;
+}
+
+.form-box > input {
+  height: 40px;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 30px;
+  padding-left: 20px;
+}
+
+.form-box > input.error {
+  border: 1px solid red;
+  background-color: rgb(250, 222, 222);
+}
+
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 40px;
+  margin-top: 20px;
+}
+
+.form-buttons > button {
+  position: relative;
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 25px;
+  opacity: 0.7;
+}
+
+.form-buttons > button:hover {
+  top: 1px;
+  opacity: 1;
+}
+
+.Status {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(100, 100, 100, 0.8);
+}
+
+.status-box {
+  height: 400px;
+  width: 450px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
