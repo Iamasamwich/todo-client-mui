@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Logo from './Logo';
 import {Todo} from '../reducers/todoReducer';
 import { getTodos } from '../actions/todo';
+import { changePage } from '../actions/page';
 
 interface State {
   todos: Todo[]
@@ -10,9 +11,10 @@ interface State {
 
 interface Props extends State {
   getTodos: () => void;
+  changePage: (page : string) => void;
 };
 
-const ShowTodos = ({todos, getTodos} : Props) => {
+const ShowTodos = ({todos, getTodos, changePage} : Props) => {
 
   useEffect(() => {
     getTodos();
@@ -22,8 +24,14 @@ const ShowTodos = ({todos, getTodos} : Props) => {
     <>
       <Logo />
       <div className='minusLogo'>
-        
-        Show todos
+        <div className="form-buttons">
+          <button 
+            className='green'
+            onClick={() => changePage('addTodo')}
+          >
+            Add A Todo
+          </button>
+        </div>
       </div>
     </>
   );
@@ -36,7 +44,8 @@ const mapStateToProps = ({todos} : State) => {
 };
 
 const mapDispatchToProps = {
-  getTodos
+  getTodos,
+  changePage
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowTodos);

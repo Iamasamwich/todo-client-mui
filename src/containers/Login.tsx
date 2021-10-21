@@ -7,7 +7,7 @@ import Logo from './Logo';
 
 interface Props {
   login: (body: {email : string; pword : string}) => void;
-  changePage: (page : 'createAccount') => void;
+  changePage: (page : string) => void;
 };
 
 const Login = ({login, changePage} : Props) => {
