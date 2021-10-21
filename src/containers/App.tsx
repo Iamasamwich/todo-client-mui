@@ -3,47 +3,56 @@ import { connect } from 'react-redux';
 import {ping} from '../actions/ping';
 
 import Login from './Login';
+import CreateAccount from './CreateAccount';
 import Status from './Status';
+import ShowTodos from './ShowTodos';
 
-interface RootState {
+interface State {
   login: boolean;
-  appStatus: string | number;
+  page: string;
 };
 
-interface Props {
-  login: boolean;
-  appStatus: string | number;
-}
+interface Props extends State {
+  ping: () => void;
+};
 
-const App = ({login, appStatus} : Props) => {
+const App = ({login, page, ping} : Props) => {
 
   useEffect(() => {
     ping();
-  }, []);
+  }, [ping]);
 
-  console.log('appStatus', appStatus);
+  const ShowPage = () => {
+    if (!login) {
+      switch (page) {
+        case 'createAccount':
+          return <CreateAccount />
+        default: 
+          return <Login />
+      };
+    } else {
+      switch (page) {
+        case 'todos':
+          return <ShowTodos />
+        default: 
+          return <ShowTodos />
+      };
+    };
+  };
 
   return (
     <div className="App">
-      {
-        appStatus ? 
-        <Status />
-        : null
-      }
-      { 
-        login ? 
-        <div> logged in</div>
-        : 
-        <Login />
-      }
+      <Status />
+      <ShowPage />
     </div>
   );
 };
 
-const mapStateToProps = (state : RootState) => {
+const mapStateToProps = ({login, page} : State) => {
+  
   return {
-    login: state.login,
-    appStatus: state.appStatus
+    login, 
+    page
   }
 }
 

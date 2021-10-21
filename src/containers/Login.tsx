@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {login} from '../actions/login';
+import {changePage} from '../actions/page';
 import Logo from './Logo';
 
+
 interface Props {
-  login: (arg: {email: string; pword: string;}) => void;
-}
+  login: (body: {email : string; pword : string}) => void;
+  changePage: (page : 'createAccount') => void;
+};
 
-
-const Login = (props : Props) => {
-
-  const login = props.login;
+const Login = ({login, changePage} : Props) => {
 
   const [email, setEmail] = useState('');
   const [pword, setPword] = useState('');
@@ -61,7 +61,7 @@ const Login = (props : Props) => {
   return (
     <>
       <Logo />
-      <div className='Login minusLogo'>
+      <div className='minusLogo'>
         <h1>LOGIN</h1>
         <div className='form-box'>
           <label>Email:</label>
@@ -78,7 +78,10 @@ const Login = (props : Props) => {
             onChange={e => setPword(e.target.value)}
           />
           {!anyError ? <ShowButtons /> : null}
-          <p className='fake-link'>
+          <p 
+            className='fake-link'
+            onClick={() => changePage('createAccount')}
+          >
             Create Account
           </p>
         </div>
@@ -87,4 +90,9 @@ const Login = (props : Props) => {
   )
 };
 
-export default connect(null, {login})(Login);
+const mapDispatchToProps = {
+  login,
+  changePage
+};
+
+export default connect(null, mapDispatchToProps)(Login);

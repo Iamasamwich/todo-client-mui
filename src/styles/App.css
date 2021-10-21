@@ -61,9 +61,6 @@ p {
 .minusLogo {
   height: calc(100vh - 300px);
   width: 100%;
-}
-
-.Login {
   background: lightgray;
   display: flex;
   flex-direction: column;
