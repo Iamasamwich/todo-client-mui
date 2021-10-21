@@ -16,3 +16,21 @@ export const getTodos = () => async (dispatch : Dispatch) => {
   })
   .catch(err => {});
 };
+
+export const addTodo = (body: {todo: string, dueDate: string}) => async (dispatch : Dispatch) => {
+  dispatch({type: 'STATUS', payload: 'loading'});
+  const newBody = {...body, done: false};
+  await api('/todo', 'POST', newBody)
+  .then(resp => {
+    console.log(resp);
+    
+    if (resp.status === 201) {
+      dispatch({type: 'STATUS', payload: null});
+      dispatch({type: 'ADD_TODO', payload: resp.todo});
+      dispatch({type: 'CHANGE_PAGE', payload: 'todos'});
+    } else {
+      dispatch({type: 'STATUS', payload: resp.status});
+    };
+  })
+  .catch(err => {});
+};

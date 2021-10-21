@@ -19,6 +19,8 @@ const ShowTodos = ({todos, getTodos, changePage} : Props) => {
   useEffect(() => {
     getTodos();
   }, [getTodos]);
+
+  console.log(todos);
   
   return (
     <>

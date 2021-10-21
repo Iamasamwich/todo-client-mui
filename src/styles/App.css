@@ -78,7 +78,7 @@ p {
   margin-top: 15px;
 }
 
-.form-box > input {
+.form-box > input, .input {
   height: 40px;
   width: 100%;
   border-radius: 10px;
