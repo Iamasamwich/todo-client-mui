@@ -3,7 +3,9 @@ import { setStatus } from '../actions/status';
 
 interface Props {
   appStatus : string | number | null;
-  setStatus : (string | null | number) => void;
+  setStatus : {
+    (status : string | number | null) : void;
+  };
 };
 
 

@@ -1,5 +1,5 @@
 interface Action {
-  payload: number;
+  payload: string | number | null;
   type: string;
 };
 
