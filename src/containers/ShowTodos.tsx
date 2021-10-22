@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Logo from './Logo';
-import {Todo} from '../reducers/todoReducer';
+import { Todo } from '../reducers/todoReducer';
 import { getTodos } from '../actions/todo';
 import { changePage } from '../actions/page';
+import ShowTodo from './ShowTodo';
 
 interface State {
-  todos: Todo[]
+  todos: Todo[],
+  todosFetched: boolean;
 }
 
 interface Props extends State {
@@ -14,14 +16,14 @@ interface Props extends State {
   changePage: (page : string) => void;
 };
 
-const ShowTodos = ({todos, getTodos, changePage} : Props) => {
+const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
 
   useEffect(() => {
-    getTodos();
-  }, [getTodos]);
+    if (!todosFetched) {
+      getTodos();
+    };
+  }, [getTodos, todosFetched]);
 
-  console.log(todos);
-  
   return (
     <>
       <Logo />
@@ -34,14 +36,20 @@ const ShowTodos = ({todos, getTodos, changePage} : Props) => {
             Add A Todo
           </button>
         </div>
+        <div className='todos-box'>
+          {todos.map(todo => {
+            return <ShowTodo todo={todo} />
+          })}
+        </div>
       </div>
     </>
   );
 };
 
-const mapStateToProps = ({todos} : State) => {
+const mapStateToProps = ({todos, todosFetched} : State) => {
   return {
-    todos
+    todos,
+    todosFetched
   };
 };
 

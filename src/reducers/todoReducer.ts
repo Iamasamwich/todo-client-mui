@@ -7,6 +7,7 @@ export interface Todo {
     id: number;
     step: string;
     done: boolean;
+    todoId: number;
   }[];
 };
 
@@ -16,10 +17,6 @@ interface Action {
 };
 
 const todoReducer = (state = [], action : Action) => {
-
-  console.log(state);
-  
-
   switch (action.type){
     case "SET_TODOS":
       return action.payload;

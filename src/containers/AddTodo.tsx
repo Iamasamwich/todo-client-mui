@@ -3,13 +3,15 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 import { addTodo } from '../actions/todo';
+import { changePage } from '../actions/page'
 import Logo from './Logo';
 
 interface Props {
   addTodo: (body: {todo: string; dueDate: string}) => Promise<void>;
+  changePage: (page: string) => void;
 };
 
-const AddTodo = ({addTodo} : Props) => {
+const AddTodo = ({addTodo, changePage} : Props) => {
 
   const convertDate = (unformattedDate : Date) => {
     return unformattedDate.getFullYear() + '-' 
@@ -75,7 +77,10 @@ const AddTodo = ({addTodo} : Props) => {
           </button>
           : null  
         }
-        <button className="red">
+        <button 
+          className="red"
+          onClick={() => changePage('home')}
+        >
           Cancel
         </button>
       </div>
@@ -109,7 +114,8 @@ const AddTodo = ({addTodo} : Props) => {
 };
 
 const mapDispatchToProps = {
-  addTodo
+  addTodo,
+  changePage
 };
 
 export default connect(null, mapDispatchToProps)(AddTodo);
