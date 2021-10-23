@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { updateTodo } from '../actions/todo';
 
-interface Todo {
+export interface Todo {
   id: number;
   todo: string;
   done: boolean;
@@ -15,16 +17,27 @@ interface Todo {
 
 interface Props {
   todo: Todo;
+  updateTodo: (todo: Todo) => void;
 };
 
-const ShowTodo = ({todo} : Props) => {
+const ShowTodo = ({todo, updateTodo} : Props) => {
 
   const ShowDueDate = () => {
-    return (
-      <h3>
-        Due in XX days
-      </h3>
-    );
+
+    const due = new Date(todo.dueDate).getTime();
+    const now = new Date().getTime();
+    const diffTime = due - now;
+    const daysTilDue = Math.ceil(diffTime / (1000 * 3600 * 24));
+    let text : string;
+    if (daysTilDue < 0) {
+      text = `${Math.abs(daysTilDue)} days overdue!`
+    } else if (daysTilDue === 0) {
+      text = 'Due today!';
+    } else {
+      text = `${daysTilDue} days until due.`
+    };
+
+    return <h3>{text}</h3>
   };
 
   const ShowStepsCount = () => {
@@ -42,12 +55,16 @@ const ShowTodo = ({todo} : Props) => {
 
     return <h3>{text}</h3>
   };
-
   
   return (
     <div className="todo-box">
       <div className='todo-box-icons'>
-        <div className='todo-box-icon'>{'\u2713'}</div>
+        <div 
+          className='todo-box-icon'
+          onClick={() => updateTodo({...todo, done: todo.done ? false : true})}
+        >
+          {todo.done ? '\u274c' : '\u2713'}
+        </div>
         <div className='todo-box-icon'>{'\u2630'}</div>
       </div>
       <div className="todo-box-text">
@@ -64,4 +81,8 @@ const ShowTodo = ({todo} : Props) => {
   )
 };
 
-export default ShowTodo;
+const mapDispatchToProps = {
+  updateTodo
+};
+
+export default connect(null, mapDispatchToProps)(ShowTodo);

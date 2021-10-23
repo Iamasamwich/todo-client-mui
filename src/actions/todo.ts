@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import api from "../api/api";
+import { Todo } from "../containers/ShowTodo";
 
 export const getTodos = () => async (dispatch : Dispatch) => {
   console.log('getTodos');
@@ -23,6 +24,8 @@ export const getTodos = () => async (dispatch : Dispatch) => {
 export const addTodo = (body: {todo: string, dueDate: string}) => async (dispatch : Dispatch) => {
   dispatch({type: 'STATUS', payload: 'loading'});
   const newBody = {...body, done: false};
+  console.log(newBody);
+  
   await api('/todo', 'POST', newBody)
   .then(resp => {
     console.log(resp);
@@ -32,8 +35,27 @@ export const addTodo = (body: {todo: string, dueDate: string}) => async (dispatc
       dispatch({type: 'ADD_TODO', payload: resp.todo});
       dispatch({type: 'CHANGE_PAGE', payload: 'todos'});
     } else {
-      dispatch({type: 'STATUS', payload: resp.status});
+      dispatch({type: 'STATUS', payload: [resp.status]});
     };
   })
   .catch(err => {});
+};
+
+export const updateTodo = (todo : Todo) => async (dispatch : Dispatch) => {
+  const body = {
+    todo: todo.todo,
+    done: todo.done,
+    dueDate: todo.dueDate,
+  };
+  dispatch({type: "STATUS", payload: 'loading'});
+  return await api(`/todo/${todo.id}`, 'PUT', body)
+  .then(resp => {
+    if (resp.status === 202) {
+      dispatch({type: 'STATUS', payload: null})
+      dispatch({type: "UPDATE_TODO", payload: [resp.todo]});
+      return;
+    } else {
+      dispatch({type: 'STATUS', payload: resp.status});
+    };
+  });
 };

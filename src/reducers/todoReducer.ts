@@ -12,8 +12,8 @@ export interface Todo {
 };
 
 interface Action {
-  type: "SET_TODOS" | "ADD_TODO";
-  payload: Todo[] | Todo;
+  type: "SET_TODOS" | "ADD_TODO" | "UPDATE_TODO";
+  payload: Todo[];
 };
 
 const todoReducer = (state = [], action : Action) => {
@@ -21,7 +21,16 @@ const todoReducer = (state = [], action : Action) => {
     case "SET_TODOS":
       return action.payload;
     case "ADD_TODO":
-      return [...state, action.payload]
+      return [...state, action.payload[0]]
+    case "UPDATE_TODO":
+      const updatedTodo : Todo = action.payload[0];
+      return state.map((todo : Todo) => {
+        if (todo.id !== action.payload[0].id) {
+          return todo;
+        } else {
+          return updatedTodo;
+        };
+      });
     default:
       return state;
   };

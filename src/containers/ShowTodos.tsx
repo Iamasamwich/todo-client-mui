@@ -38,7 +38,7 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
         </div>
         <div className='todos-box'>
           {todos.map(todo => {
-            return <ShowTodo todo={todo} />
+            return <ShowTodo todo={todo} key={todo.id} />
           })}
         </div>
       </div>
