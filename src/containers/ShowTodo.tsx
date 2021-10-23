@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { updateTodo } from '../actions/todo';
+import ShowStep from './ShowStep';
 
 export interface Todo {
   id: number;
@@ -22,12 +23,13 @@ interface Props {
 
 const ShowTodo = ({todo, updateTodo} : Props) => {
 
-  const ShowDueDate = () => {
+  const [showSteps, setShowSteps] = useState(false)
 
+
+  const ShowDueDate = () => {
     const due = new Date(todo.dueDate).getTime();
     const now = new Date().getTime();
-    const diffTime = due - now;
-    const daysTilDue = Math.ceil(diffTime / (1000 * 3600 * 24));
+    const daysTilDue = Math.ceil((due - now) / (1000 * 3600 * 24));
     let text : string;
     if (daysTilDue < 0) {
       text = `${Math.abs(daysTilDue)} days overdue!`
@@ -55,28 +57,43 @@ const ShowTodo = ({todo, updateTodo} : Props) => {
 
     return <h3>{text}</h3>
   };
-  
+
   return (
     <div className="todo-box">
-      <div className='todo-box-icons'>
-        <div 
-          className='todo-box-icon'
-          onClick={() => updateTodo({...todo, done: todo.done ? false : true})}
-        >
-          {todo.done ? '\u274c' : '\u2713'}
-        </div>
-        <div className='todo-box-icon'>{'\u2630'}</div>
-      </div>
-      <div className="todo-box-text">
-        <div className='todo-box-top'>
-          <h2>{todo.todo}</h2>
-        </div>
-        <div className='todo-box-bottom'>
-          <ShowDueDate />
-          <ShowStepsCount />
-        </div>
+      <div className="todo-box-todo">
 
+        <div className='todo-box-icons icons'>
+          <div 
+            className='todo-box-icon'
+            onClick={() => updateTodo({...todo, done: todo.done ? false : true})}
+          >
+            {todo.done ? '\u274c' : '\u2705'}
+          </div>
+          <div 
+            className='todo-box-icon'
+            onClick={() => setShowSteps(!showSteps)}
+          >
+            {showSteps ? '\u2500' : '\u2630'}
+          </div>
+        </div>
+        <div className="todo-box-text">
+          <div className='todo-box-top'>
+            <h2>{todo.todo}</h2>
+          </div>
+          <div className='todo-box-bottom'>
+            <ShowDueDate />
+            <ShowStepsCount />
+          </div>
+        </div>
       </div>
+
+      {showSteps ? 
+        <div className='todo-box-steps'>
+          {todo.steps.map(step => {
+            return <ShowStep step={step} key={step.id} />
+          })}
+        </div>
+        : null}
     </div>
   )
 };

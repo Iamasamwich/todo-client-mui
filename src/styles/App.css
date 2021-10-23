@@ -51,6 +51,9 @@ p {
 }
 
 .Logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 800px;
   height: 300px;
   background-color: cadetblue;
@@ -139,20 +142,27 @@ p {
 
 .todos-box {
   width: 100%;
-  background-color: pink;
+}
+
+.todo-box-todo {
+  display: flex;
+  flex-direction: row;
 }
 
 .todo-box {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: burlywood;
   margin: 10px;
   min-height: 35px;
 }
 
-.todo-box-icons {
+.icons {
   display: flex;
   flex-direction: row;
+}
+
+.todo-box-icons {
   width: 100px;
   min-height: 60px;
   justify-content: space-around;
@@ -203,4 +213,20 @@ p {
   flex-grow: 1;
   align-items: center;
   justify-content: center;
+}
+
+.todo-box-steps {
+  display: flex;
+  flex-direction: column;
+  margin-left: 80px;
+}
+
+.step {
+  display: flex;
+  flex-direction: row;
+}
+
+.todo-step {
+  margin-left: 10px;
+  font-size: 20px;
 }

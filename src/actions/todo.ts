@@ -42,12 +42,15 @@ export const addTodo = (body: {todo: string, dueDate: string}) => async (dispatc
 };
 
 export const updateTodo = (todo : Todo) => async (dispatch : Dispatch) => {
+
   const body = {
     todo: todo.todo,
     done: todo.done,
     dueDate: todo.dueDate,
   };
+
   dispatch({type: "STATUS", payload: 'loading'});
+
   return await api(`/todo/${todo.id}`, 'PUT', body)
   .then(resp => {
     if (resp.status === 202) {
