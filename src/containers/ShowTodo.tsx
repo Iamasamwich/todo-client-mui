@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { updateTodo } from '../actions/todo';
-import ShowStep from './ShowStep';
+import ShowSteps from './ShowSteps';
+
 
 export interface Todo {
   id: number;
@@ -86,14 +87,7 @@ const ShowTodo = ({todo, updateTodo} : Props) => {
           </div>
         </div>
       </div>
-
-      {showSteps ? 
-        <div className='todo-box-steps'>
-          {todo.steps.map(step => {
-            return <ShowStep step={step} key={step.id} />
-          })}
-        </div>
-        : null}
+      <ShowSteps steps={todo.steps} todoId={todo.id} />
     </div>
   )
 };

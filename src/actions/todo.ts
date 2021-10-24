@@ -1,10 +1,8 @@
 import { Dispatch } from "redux";
 import api from "../api/api";
-import { Todo } from "../containers/ShowTodo";
+import { Todo } from "../reducers/todoReducer";
 
 export const getTodos = () => async (dispatch : Dispatch) => {
-  console.log('getTodos');
-  
   dispatch({type: "STATUS", payload: 'loading'});
   return await api('/todo', 'GET')
   .then(resp => {
@@ -28,8 +26,6 @@ export const addTodo = (body: {todo: string, dueDate: string}) => async (dispatc
   
   await api('/todo', 'POST', newBody)
   .then(resp => {
-    console.log(resp);
-    
     if (resp.status === 201) {
       dispatch({type: 'STATUS', payload: null});
       dispatch({type: 'ADD_TODO', payload: resp.todo});
@@ -42,23 +38,21 @@ export const addTodo = (body: {todo: string, dueDate: string}) => async (dispatc
 };
 
 export const updateTodo = (todo : Todo) => async (dispatch : Dispatch) => {
-
   const body = {
     todo: todo.todo,
     done: todo.done,
     dueDate: todo.dueDate,
   };
-
   dispatch({type: "STATUS", payload: 'loading'});
-
   return await api(`/todo/${todo.id}`, 'PUT', body)
   .then(resp => {
     if (resp.status === 202) {
       dispatch({type: 'STATUS', payload: null})
-      dispatch({type: "UPDATE_TODO", payload: [resp.todo]});
+      dispatch({type: "UPDATE_TODO", payload: resp.todo});
       return;
     } else {
       dispatch({type: 'STATUS', payload: resp.status});
     };
-  });
+  })
+  .catch(err => {});
 };
