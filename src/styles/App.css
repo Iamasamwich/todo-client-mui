@@ -37,6 +37,10 @@ p {
   background-color: rgb(117, 224, 117);
 }
 
+.greenText {
+  color: green;
+}
+
 .red {
   background-color: rgb(224, 117, 117);
 }

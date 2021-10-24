@@ -25,10 +25,12 @@ export const updateStep = (stepId : number, todoId : number, body : {step: strin
   dispatch({type: "STATUS", payload: 'loading'});
   return await api(`/todo/${todoId}/step/${stepId}`, 'PUT', body)
   .then(resp => {
-    console.log(resp);
-    
+    if (resp.status === 202) {
+      dispatch({type: "STATUS", payload: null});
+      dispatch({type: "UPDATE_STEP", payload: resp.step});
+    } else {
+      dispatch({type: "STATUS", payload: resp.status});
+    };
   })
   .catch(err => {});
-  
-
-}
+};

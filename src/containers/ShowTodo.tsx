@@ -87,7 +87,9 @@ const ShowTodo = ({todo, updateTodo} : Props) => {
           </div>
         </div>
       </div>
-      <ShowSteps steps={todo.steps} todoId={todo.id} />
+      {showSteps ? 
+        <ShowSteps steps={todo.steps} todoId={todo.id} />
+        : null}
     </div>
   )
 };

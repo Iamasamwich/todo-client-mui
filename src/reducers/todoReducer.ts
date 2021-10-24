@@ -14,14 +14,18 @@ export interface Todo {
 };
 
 interface Action {
-  type: "SET_TODOS" | "ADD_TODO" | "UPDATE_TODO" | "ADD_STEP";
+  type: "SET_TODOS" | "ADD_TODO" | "UPDATE_TODO" | "ADD_STEP" | "UPDATE_STEP";
   payload: Todo[] | Todo | Step;
 };
 
 const todoReducer = (state = [], action : Action) => {
   switch (action.type){
     case "SET_TODOS":
-      return action.payload;
+      const todos = action.payload as Todo[];
+      const doneLast : Todo[] = todos.sort((a, b) => {
+        return (a.done === b.done) ? 0 : a.done ? 1 : -1
+      });
+      return doneLast;
     case "ADD_TODO":
       return [...state, action.payload as Todo]
     case "UPDATE_TODO":
@@ -40,6 +44,20 @@ const todoReducer = (state = [], action : Action) => {
           return {...todo, steps: [...todo.steps, action.payload]}
         } else {
           return todo;
+        };
+      });
+    case "UPDATE_STEP":
+      console.log(state);
+      
+      const updatedStep = action.payload as Step;
+      return state.map((todo : Todo) => {
+        if (updatedStep.todoId !== todo.id) {
+          return todo;
+        } else {
+          const steps = todo.steps.filter(step => {
+            return step.id !== updatedStep.id;
+          });
+          return  {...todo, steps: [...steps, updatedStep]}
         };
       });
     default:

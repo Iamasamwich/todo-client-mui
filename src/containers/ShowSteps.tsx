@@ -20,7 +20,6 @@ const ShowSteps = ({steps, todoId, addStep} : Props) => {
 
   const handleAddStepClick = () => {
     if (!step) {
-      
       return;
     } else {
       const body = {

@@ -26,10 +26,10 @@ const ShowStep = ({step, updateStep} : Props) => {
   return (
     <div className='step'>
       <div 
-        className='step-icons icons'
+        className={step.done ? 'green step-icons icons' : 'step-icons icons'}
         onClick={() => handleStepDoneClick()}
       >
-        {step.done ? '\u274c' : '\u2705'}
+        {step.done ? '\u2611' : '\u2611'}
       </div>
       <div className="todo-step">
         {'\u00b7'} {step.step}
