@@ -27,37 +27,45 @@ const todoReducer = (state = [], action : Action) => {
       });
       return doneLast;
     case "ADD_TODO":
-      return [...state, action.payload as Todo]
+      const todosWithNewTodo : Todo[] = [...state, action.payload as Todo];
+      return todosWithNewTodo.sort((a, b) => {
+        return (a.done === b.done) ? 0 : a.done ? 1: -1;
+      });
     case "UPDATE_TODO":
       const updatedTodo = action.payload as Todo;
-      return state.map((todo : Todo) => {
+      const newTodosWithUpdatedTodo = state.map((todo : Todo) => {
         if (todo.id !== updatedTodo.id) {
           return todo;
         } else {
           return action.payload;
         };
+      }) as Todo[];
+      return newTodosWithUpdatedTodo.sort((a, b) => {
+        return (a.done === b.done) ? 0 : a.done ? 1 : -1;
       });
     case "ADD_STEP":
       const newStep = action.payload as Step;
       return state.map((todo : Todo) => {
         if (newStep.todoId === todo.id) {
-          return {...todo, steps: [...todo.steps, action.payload]}
+          return {...todo, steps: [...todo.steps, newStep]};
         } else {
           return todo;
         };
       });
     case "UPDATE_STEP":
-      console.log(state);
-      
       const updatedStep = action.payload as Step;
       return state.map((todo : Todo) => {
-        if (updatedStep.todoId !== todo.id) {
-          return todo;
-        } else {
-          const steps = todo.steps.filter(step => {
-            return step.id !== updatedStep.id;
+        if (updatedStep.todoId === todo.id) {
+          const steps = todo.steps.map(step => {
+            if (step.id === updatedStep.id) {
+              return updatedStep;
+            } else {
+              return step;
+            }
           });
-          return  {...todo, steps: [...steps, updatedStep]}
+          return {...todo, steps};
+        } else {
+          return todo;
         };
       });
     default:

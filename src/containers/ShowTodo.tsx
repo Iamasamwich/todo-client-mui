@@ -28,9 +28,14 @@ const ShowTodo = ({todo, updateTodo} : Props) => {
 
 
   const ShowDueDate = () => {
-    const due = new Date(todo.dueDate).getTime();
-    const now = new Date().getTime();
-    const daysTilDue = Math.ceil((due - now) / (1000 * 3600 * 24));
+
+    const d = new Date();
+    const todaysDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    const now = Math.floor(new Date(todaysDate).getTime() / (1000 * 3600 * 24));
+    const due = Math.floor(new Date(todo.dueDate).getTime() / (1000 * 3600 * 24));
+    
+    const daysTilDue = due - now;
+    
     let text : string;
     if (daysTilDue < 0) {
       text = `${Math.abs(daysTilDue)} days overdue!`
@@ -55,7 +60,6 @@ const ShowTodo = ({todo, updateTodo} : Props) => {
       });
       text = `${done.length}/${stepCount} steps completed`;
     };
-
     return <h3>{text}</h3>
   };
 
