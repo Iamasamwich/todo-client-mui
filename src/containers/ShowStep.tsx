@@ -27,6 +27,11 @@ const ShowStep = ({step, updateStep} : Props) => {
       >
         {step.done ? '\u2611' : '\u2611'}
       </div>
+      <div
+      className='step icons icons'
+      >
+        {'\u2421'}
+      </div>
       <div className="todo-step">
         {'\u00b7'} {step.step}
       </div>
