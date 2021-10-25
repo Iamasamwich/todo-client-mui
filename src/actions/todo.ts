@@ -2,9 +2,13 @@ import { Dispatch } from "redux";
 import api from "../api/api";
 import { Todo } from "../reducers/todoReducer";
 
-export const getTodos = () => async (dispatch : Dispatch) => {
+export const getTodos = () => async (dispatch : any, getState : any) => {
+  console.log('here');
+  
+  const path = getState().showTodos === 'active' ? '/todo' : '/todo/all';
+
   dispatch({type: "STATUS", payload: 'loading'});
-  return await api('/todo', 'GET')
+  return await api(path, 'GET')
   .then(resp => {
     if (resp.status === 200) {
       dispatch({type: "TODOS_FETCHED", payload: true});
@@ -55,4 +59,14 @@ export const updateTodo = (todo : Todo) => async (dispatch : Dispatch) => {
     };
   })
   .catch(err => {});
+};
+
+export const changeShowTodos = (str : 'active' | 'all') => (dispatch : Dispatch) => {
+  dispatch({type: 'SHOW_TODOS', payload: str});
+  dispatch({type: 'TODOS_FETCHED', payload: false});
+  const path = str === 'active' ? '/todo' : '/todo/all';
+
+  
+
+  return;
 };
