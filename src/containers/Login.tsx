@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {login} from '../actions/login';
 import {changePage} from '../actions/page';
+import { IloginBody } from '../interfaces';
 import Logo from './Logo';
 
 
 interface Props {
-  login: (body: {email : string; pword : string}) => void;
+  login: (body: IloginBody) => void;
   changePage: (page : string) => void;
 };
 

@@ -1,19 +1,10 @@
 import { Dispatch } from "redux";
 import api from "../api/api";
+import {Ires, IloginBody} from '../interfaces';
 
-interface LoginRes {
-  status: number;
-  message: string;
-};
-
-interface Body {
-  email : string;
-  pword : string;
-};
-
-export const login = (body : Body) => async (dispatch : Dispatch) => {
+export const login = (body : IloginBody) => async (dispatch : Dispatch) => {
   await api('/login', 'POST', body)
-  .then((res : LoginRes) => {
+  .then((res : Ires) => {
     if (res.status === 200) {
       dispatch({type: 'LOGIN', payload: true});
     } else {

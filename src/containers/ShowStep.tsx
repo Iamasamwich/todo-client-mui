@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {updateStep} from '../actions/step';
+import { Istep, IupdateStepBody } from '../interfaces';
 
 interface Props {
-  step: {
-    id: number;
-    todoId: number;
-    step: string;
-    done: boolean;
-  };
-  updateStep: (stepId : number, todoId: number, body : {step: string; done: boolean}) => void;
+  step: Istep;
+  updateStep: (details : IupdateStepBody) => void;
 };
 
 const ShowStep = ({step, updateStep} : Props) => {
@@ -19,14 +15,14 @@ const ShowStep = ({step, updateStep} : Props) => {
       step: step.step,
       done: step.done ? false : true,
     };
-    updateStep(step.id, step.todoId, body);
+    updateStep({stepId: step.id, todoId: step.todoId, body});
     return;
   };
 
   return (
     <div className='step'>
       <div 
-        className={step.done ? 'green step-icons icons' : 'step-icons icons'}
+        className={step.done ? 'greenIcon step-icons icons' : 'step-icons icons'}
         onClick={() => handleStepDoneClick()}
       >
         {step.done ? '\u2611' : '\u2611'}

@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { addTodo } from '../actions/todo';
 import { changePage } from '../actions/page'
 import Logo from './Logo';
+import { IaddTodoBody } from '../interfaces';
 
 interface Props {
-  addTodo: (body: {todo: string; dueDate: string}) => Promise<void>;
+  addTodo: (body: IaddTodoBody) => Promise<void>;
   changePage: (page: string) => void;
 };
 

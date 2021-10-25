@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createAccount } from '../actions/user';
+import { IaddUserBody } from '../interfaces';
 import Logo from './Logo';
 
 interface Props {
-  createAccount : (body : {name : string; email : string; pword : string}) => void;
+  createAccount : (body : IaddUserBody) => void;
 };
 
 const CreateAccount = ({createAccount} : Props) => {

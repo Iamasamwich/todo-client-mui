@@ -1,16 +1,12 @@
 import { Dispatch } from "redux";
 import api from "../api/api";
+import { IaddStepBody, IupdateStepBody, IstepRes } from "../interfaces";
 
-export interface AddStepBody {
-  todoId: number;
-  step: string;
-  done: boolean;
-};
 
-export const addStep = (body : AddStepBody) => async (dispatch : Dispatch) => {
+export const addStep = (body : IaddStepBody) => async (dispatch : Dispatch) => {
   dispatch({type: "STATUS", payload: 'loading'});
   return await api(`/todo/${body.todoId}/step`, 'POST', body)
-  .then(resp => {
+  .then((resp : IstepRes) => {
     if (resp.status === 201) {
       dispatch({type: "STATUS", payload: null});
       dispatch({type: "ADD_STEP", payload: resp.step});
@@ -21,10 +17,10 @@ export const addStep = (body : AddStepBody) => async (dispatch : Dispatch) => {
   });
 };
 
-export const updateStep = (stepId : number, todoId : number, body : {step: string; done: boolean}) => async (dispatch : Dispatch) => {
+export const updateStep = (details: IupdateStepBody) => async (dispatch : Dispatch) => {
   dispatch({type: "STATUS", payload: 'loading'});
-  return await api(`/todo/${todoId}/step/${stepId}`, 'PUT', body)
-  .then(resp => {
+  return await api(`/todo/${details.todoId}/step/${details.stepId}`, 'PUT', details.body)
+  .then((resp : IstepRes) => {
     if (resp.status === 202) {
       dispatch({type: "STATUS", payload: null});
       dispatch({type: "UPDATE_STEP", payload: resp.step});

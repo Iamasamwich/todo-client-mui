@@ -1,31 +1,17 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { updateTodo } from '../actions/todo';
+import { Itodo } from '../interfaces';
 import ShowSteps from './ShowSteps';
 
-
-export interface Todo {
-  id: number;
-  todo: string;
-  done: boolean;
-  dueDate: string;
-  steps: {
-    step: string;
-    done: boolean;
-    id: number;
-    todoId: number;
-  }[];
-};
-
 interface Props {
-  todo: Todo;
-  updateTodo: (todo: Todo) => void;
+  todo: Itodo;
+  updateTodo: (todo: Itodo) => void;
 };
 
 const ShowTodo = ({todo, updateTodo} : Props) => {
 
   const [showSteps, setShowSteps] = useState(false)
-
 
   const ShowDueDate = () => {
 

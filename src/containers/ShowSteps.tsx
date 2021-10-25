@@ -1,17 +1,13 @@
 import { useState } from 'react';
 import { connect } from 'react-redux';
-import { addStep, AddStepBody } from '../actions/step';
+import { addStep } from '../actions/step';
+import { IaddStepBody, Istep } from '../interfaces';
 import ShowStep from './ShowStep';
 
 interface Props {
-  steps: {
-    step: string;
-    id: number;
-    done: boolean;
-    todoId: number;
-  }[];
+  steps: Istep[];
   todoId: number;
-  addStep: (body: AddStepBody) => void;
+  addStep: (body: IaddStepBody) => void;
 };
 
 const ShowSteps = ({steps, todoId, addStep} : Props) => {
@@ -45,6 +41,7 @@ const ShowSteps = ({steps, todoId, addStep} : Props) => {
         />
         <button
           onClick={handleAddStepClick}
+          className='green'
         >Add Step</button>
       </div>
     </div>

@@ -1,6 +1,6 @@
 interface Action {
   payload: boolean;
-  type: string;
+  type: "LOGIN";
 }
 
 const loginReducer = (state = false, action : Action) => {

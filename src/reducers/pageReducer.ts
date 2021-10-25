@@ -1,6 +1,6 @@
 interface Action {
   type: string;
-  payload: string;
+  payload: "CHANGE_PAGE";
 }
 
 const pageReducer = (state = 'home', action : Action) => {

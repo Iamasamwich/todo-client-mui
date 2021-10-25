@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Logo from './Logo';
-import { Todo } from '../reducers/todoReducer';
 import { getTodos, changeShowTodos } from '../actions/todo';
 import { changePage } from '../actions/page';
 import ShowTodo from './ShowTodo';
+import { Itodo } from '../interfaces';
 
 interface State {
-  todos: Todo[],
+  todos: Itodo[],
   todosFetched: boolean;
-  showTodos: 'active' | 'all'
-}
+  // showTodos: 'active' | 'all'
+};
 
 interface Props extends State {
   getTodos: () => void;
@@ -18,7 +18,7 @@ interface Props extends State {
   changeShowTodos: (str : 'active' | 'all') => void;
 };
 
-const ShowTodos = ({todos, todosFetched, showTodos, getTodos, changePage, changeShowTodos} : Props) => {
+const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
 
   const [allOrActive, setAllOrActive] = useState <'all' | 'active'>('active');
 
@@ -70,11 +70,10 @@ const ShowTodos = ({todos, todosFetched, showTodos, getTodos, changePage, change
   );
 };
 
-const mapStateToProps = ({todos, todosFetched, showTodos} : State) => {
+const mapStateToProps = ({todos, todosFetched} : State) => {
   return {
     todos,
     todosFetched,
-    showTodos
   };
 };
 

@@ -1,51 +1,38 @@
-export interface Step {
-  id: number;
-  step: string;
-  done: boolean;
-  todoId: number;
-};
-
-export interface Todo {
-  todo: string;
-  id: number;
-  dueDate: string;
-  done: boolean;
-  steps: Step[];
-};
+import {Itodo, Istep} from '../interfaces';
 
 interface Action {
   type: "SET_TODOS" | "ADD_TODO" | "UPDATE_TODO" | "ADD_STEP" | "UPDATE_STEP";
-  payload: Todo[] | Todo | Step;
+  payload: Itodo[] | Itodo | Istep;
 };
 
 const todoReducer = (state = [], action : Action) => {
   switch (action.type){
     case "SET_TODOS":
-      const todos = action.payload as Todo[];
-      const doneLast : Todo[] = todos.sort((a, b) => {
+      const todos = action.payload as Itodo[];
+      const doneLast : Itodo[] = todos.sort((a, b) => {
         return (a.done === b.done) ? 0 : a.done ? 1 : -1
       });
       return doneLast;
     case "ADD_TODO":
-      const todosWithNewTodo : Todo[] = [...state, action.payload as Todo];
+      const todosWithNewTodo : Itodo[] = [...state, action.payload as Itodo];
       return todosWithNewTodo.sort((a, b) => {
         return (a.done === b.done) ? 0 : a.done ? 1: -1;
       });
     case "UPDATE_TODO":
-      const updatedTodo = action.payload as Todo;
-      const newTodosWithUpdatedTodo = state.map((todo : Todo) => {
+      const updatedTodo = action.payload as Itodo;
+      const newTodosWithUpdatedTodo = state.map((todo : Itodo) => {
         if (todo.id !== updatedTodo.id) {
           return todo;
         } else {
           return action.payload;
         };
-      }) as Todo[];
+      }) as Itodo[];
       return newTodosWithUpdatedTodo.sort((a, b) => {
         return (a.done === b.done) ? 0 : a.done ? 1 : -1;
       });
     case "ADD_STEP":
-      const newStep = action.payload as Step;
-      return state.map((todo : Todo) => {
+      const newStep = action.payload as Istep;
+      return state.map((todo : Itodo) => {
         if (newStep.todoId === todo.id) {
           return {...todo, steps: [...todo.steps, newStep]};
         } else {
@@ -53,8 +40,8 @@ const todoReducer = (state = [], action : Action) => {
         };
       });
     case "UPDATE_STEP":
-      const updatedStep = action.payload as Step;
-      return state.map((todo : Todo) => {
+      const updatedStep = action.payload as Istep;
+      return state.map((todo : Itodo) => {
         if (updatedStep.todoId === todo.id) {
           const steps = todo.steps.map(step => {
             if (step.id === updatedStep.id) {

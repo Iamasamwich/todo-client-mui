@@ -37,7 +37,7 @@ p {
   background-color: rgb(117, 224, 117);
 }
 
-.greenText {
+.greenIcon {
   color: green;
 }
 
@@ -228,9 +228,33 @@ p {
 .step {
   display: flex;
   flex-direction: row;
+  height: 25px;
+}
+
+.step-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.step-icons:hover {
+  cursor: pointer;
 }
 
 .todo-step {
   margin-left: 10px;
   font-size: 20px;
+}
+
+.step-input > input {
+  height: 25px;
+  font-size: 20px;
+}
+
+.step-input > button {
+  height: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  
 }

@@ -1,26 +1,12 @@
 import { Dispatch } from "redux";
 import api from "../api/api";
+import { IaddUserBody, Ires } from "../interfaces";
 
-interface CreateAccountBody {
-  name: string;
-  email: string;
-  pword: string;
-};
-
-interface Resp {
-  status: number;
-  message: number;
-};
-
-export const createAccount = (body : CreateAccountBody) => async (dispatch : Dispatch) => {
+export const createAccount = (body : IaddUserBody) => async (dispatch : Dispatch) => {
   console.log('here');
   
   return await api('/user', 'POST', body)
-  .then((resp : Resp) => {
-    console.log(resp);
-    return resp;
-  })
-  .then(resp => {
+  .then((resp : Ires) => {
     if (resp.status === 201) {
       dispatch({type: "LOGIN", payload: true});
     } else {
@@ -28,5 +14,6 @@ export const createAccount = (body : CreateAccountBody) => async (dispatch : Dis
       dispatch({type: "STATUS", payload: resp.status});
       dispatch({type: "CHANGE_PAGE", payload: 'login'});
     };
-  });
+  })
+  .catch(err => {});
 };
