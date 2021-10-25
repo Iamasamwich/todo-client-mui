@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Logo from './Logo';
 import { Todo } from '../reducers/todoReducer';
@@ -20,11 +20,23 @@ interface Props extends State {
 
 const ShowTodos = ({todos, todosFetched, showTodos, getTodos, changePage, changeShowTodos} : Props) => {
 
+  const [allOrActive, setAllOrActive] = useState <'all' | 'active'>('active');
+
   useEffect(() => {
     if (!todosFetched) {
       getTodos();
     };
   }, [getTodos, todosFetched]);
+
+  const selectedTodos = () => {
+    if (allOrActive === 'active') {
+      return todos.filter(todo => {
+        return !todo.done ? todo : null;
+      });
+    } else {
+      return todos;
+    };
+  };
 
   return (
     <>
@@ -38,9 +50,9 @@ const ShowTodos = ({todos, todosFetched, showTodos, getTodos, changePage, change
             Add A Todo
           </button>
           <button
-            onClick={() => changeShowTodos(showTodos === 'active' ? 'all' : 'active')}
+            onClick={() => setAllOrActive(allOrActive === 'active' ? 'all' : 'active')}
           >
-            {showTodos === 'active' ? 
+            {allOrActive === 'active' ? 
               'Show All Todos'
               : 
               'Show Active Todos'
@@ -49,7 +61,7 @@ const ShowTodos = ({todos, todosFetched, showTodos, getTodos, changePage, change
         </div>
 
         <div className='todos-box'>
-          {todos.map(todo => {
+          {selectedTodos().map(todo => {
             return <ShowTodo todo={todo} key={todo.id} />
           })}
         </div>
