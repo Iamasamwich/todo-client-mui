@@ -1,8 +1,8 @@
 import {Itodo, Istep} from '../interfaces';
 
 interface Action {
-  type: "SET_TODOS" | "ADD_TODO" | "UPDATE_TODO" | "ADD_STEP" | "UPDATE_STEP";
-  payload: Itodo[] | Itodo | Istep;
+  type: "SET_TODOS" | "ADD_TODO" | "UPDATE_TODO" | "REMOVE_TODO" | "ADD_STEP" | "UPDATE_STEP";
+  payload: Itodo[] | Itodo | Istep | number;
 };
 
 const todoReducer = (state = [], action : Action) => {
@@ -29,6 +29,14 @@ const todoReducer = (state = [], action : Action) => {
       }) as Itodo[];
       return newTodosWithUpdatedTodo.sort((a, b) => {
         return (a.done === b.done) ? 0 : a.done ? 1 : -1;
+      });
+    case "REMOVE_TODO":
+      const stateTodos = [...state] as Itodo[]; 
+      const todoId = action.payload as number;
+      return stateTodos.filter(todo => {
+        if (todo.id !== todoId) {
+          return todo;
+        };
       });
     case "ADD_STEP":
       const newStep = action.payload as Istep;

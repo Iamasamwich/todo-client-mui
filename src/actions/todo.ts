@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import api from "../api/api";
-import { IaddTodoBody, Itodo, ItodoRes, ItodosRes } from "../interfaces";
+import { IaddTodoBody, Ires, Itodo, ItodoRes, ItodosRes } from "../interfaces";
 
 export const getTodos = () => async (dispatch : any, getState : any) => {
   const path = getState().showTodos === 'active' ? '/todo' : '/todo/all';
@@ -52,6 +52,26 @@ export const updateTodo = (todo : Itodo) => async (dispatch : Dispatch) => {
       return;
     } else {
       dispatch({type: 'STATUS', payload: resp.status});
+    };
+  })
+  .catch(err => {});
+};
+
+export const deleteTodo = (todoId : number) => async (dispatch : Dispatch) => {
+  console.log('deleting todo #', todoId);
+  
+  dispatch({type: 'STATUS', payload: 'loading'});
+  console.log(todoId);
+  await api(`/todo/${todoId}`, "DELETE")
+  .then((resp : Ires) => {
+    console.log(resp);
+    if (resp.status === 202) {
+      dispatch({type: 'STATUS', payload: null});
+      dispatch({type: 'REMOVE_TODO', payload: todoId});
+      return;
+    } else {
+      dispatch({type: 'STATUS', payload: resp.status});
+      return;
     };
   })
   .catch(err => {});

@@ -9,7 +9,7 @@ interface Body {
 
 const host = 'http://localhost:3000';
 
-const api = (path : string, method : "POST" | "GET" | "PUT", body?: Body) => {
+const api = (path : string, method : "POST" | "GET" | "PUT" | "DELETE", body?: Body) => {
   return fetch(host + path, {
     method,
     headers: {
