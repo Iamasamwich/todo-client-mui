@@ -1,8 +1,8 @@
-import {Itodo, Istep} from '../interfaces';
+import {Itodo, Istep, IremoveTodo, IremoveStep} from '../interfaces';
 
 interface Action {
-  type: "SET_TODOS" | "ADD_TODO" | "UPDATE_TODO" | "REMOVE_TODO" | "ADD_STEP" | "UPDATE_STEP";
-  payload: Itodo[] | Itodo | Istep | number;
+  type: "SET_TODOS" | "ADD_TODO" | "UPDATE_TODO" | "REMOVE_TODO" | "ADD_STEP" | "UPDATE_STEP" | "REMOVE_STEP";
+  payload: Itodo[] | Itodo | Istep | IremoveTodo | IremoveStep;
 };
 
 const todoReducer = (state = [], action : Action) => {
@@ -31,12 +31,10 @@ const todoReducer = (state = [], action : Action) => {
         return (a.done === b.done) ? 0 : a.done ? 1 : -1;
       });
     case "REMOVE_TODO":
-      const stateTodos = [...state] as Itodo[]; 
-      const todoId = action.payload as number;
-      return stateTodos.filter(todo => {
-        if (todo.id !== todoId) {
-          return todo;
-        };
+      const removeTodoStateTodos = [...state] as Itodo[]; 
+      const removeTodoPayload = action.payload as IremoveTodo;
+      return removeTodoStateTodos.filter(todo => {
+        return todo.id !== removeTodoPayload.todoId;
       });
     case "ADD_STEP":
       const newStep = action.payload as Istep;
@@ -63,6 +61,21 @@ const todoReducer = (state = [], action : Action) => {
           return todo;
         };
       });
+
+    case "REMOVE_STEP":
+      const removeStepPayload = action.payload as IremoveStep;
+      const removeStepStateTodos = [...state] as Itodo[];
+      return removeStepStateTodos.map(todo => {
+        if (todo.id !== removeStepPayload.todoId) {
+          return todo;
+        } else {
+          const newSteps = todo.steps.filter(step => {
+            return step.id !== removeStepPayload.stepId
+          });
+          return {...todo, steps: newSteps};
+        };
+      });
+
     default:
       return state;
   };

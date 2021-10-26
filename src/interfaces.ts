@@ -60,3 +60,11 @@ export interface IupdateStepBody {
     done: boolean;
   };
 };
+
+export interface IremoveTodo {
+  todoId: number;
+};
+
+export interface IremoveStep extends IremoveTodo {
+  stepId: number;
+};

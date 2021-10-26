@@ -30,3 +30,18 @@ export const updateStep = (details: IupdateStepBody) => async (dispatch : Dispat
   })
   .catch(err => {});
 };
+
+export const deleteStep = (stepId: number, todoId: number) => async (dispatch : Dispatch) => {
+  dispatch({type: "STATUS", payload: 'loading'});
+  return await api(`/todo/${todoId}/step/${stepId}`, 'DELETE')
+  .then(resp => {
+    if (resp.status === 202) {
+      dispatch({type: "STATUS", payload: null});
+      dispatch({type: "REMOVE_STEP", payload: {stepId, todoId}});
+      return;
+    } else {
+      dispatch({type: "STATUS", payload: resp.status});
+      return;
+    };
+  });
+};

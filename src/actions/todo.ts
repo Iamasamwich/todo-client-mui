@@ -70,7 +70,7 @@ export const deleteTodo = (todoId : number) => async (dispatch : Dispatch) => {
       dispatch({type: 'REMOVE_TODO', payload: todoId});
       return;
     } else {
-      dispatch({type: 'STATUS', payload: resp.status});
+      dispatch({type: 'STATUS', payload: {todoId}});
       return;
     };
   })
