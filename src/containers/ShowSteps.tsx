@@ -38,6 +38,7 @@ const ShowSteps = ({steps, todoId, addStep} : Props) => {
         <input
           value={step}
           onChange={e => setStep(e.target.value)}
+          onKeyDown={e => e.code === "Enter" ? handleAddStepClick() : null}
         />
         <button
           onClick={handleAddStepClick}

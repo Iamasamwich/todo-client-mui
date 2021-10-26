@@ -30,12 +30,18 @@ const todoReducer = (state = [], action : Action) => {
       return newTodosWithUpdatedTodo.sort((a, b) => {
         return (a.done === b.done) ? 0 : a.done ? 1 : -1;
       });
+
     case "REMOVE_TODO":
+
+      console.log(action.payload);
+        
+
       const removeTodoStateTodos = [...state] as Itodo[]; 
       const removeTodoPayload = action.payload as IremoveTodo;
       return removeTodoStateTodos.filter(todo => {
         return todo.id !== removeTodoPayload.todoId;
       });
+
     case "ADD_STEP":
       const newStep = action.payload as Istep;
       return state.map((todo : Itodo) => {

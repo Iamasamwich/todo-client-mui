@@ -61,16 +61,15 @@ export const deleteTodo = (todoId : number) => async (dispatch : Dispatch) => {
   console.log('deleting todo #', todoId);
   
   dispatch({type: 'STATUS', payload: 'loading'});
-  console.log(todoId);
   await api(`/todo/${todoId}`, "DELETE")
   .then((resp : Ires) => {
     console.log(resp);
     if (resp.status === 202) {
       dispatch({type: 'STATUS', payload: null});
-      dispatch({type: 'REMOVE_TODO', payload: todoId});
+      dispatch({type: 'REMOVE_TODO', payload: {todoId}});
       return;
     } else {
-      dispatch({type: 'STATUS', payload: {todoId}});
+      dispatch({type: 'STATUS', payload: resp.status});
       return;
     };
   })

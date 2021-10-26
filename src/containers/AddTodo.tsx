@@ -88,6 +88,14 @@ const AddTodo = ({addTodo, changePage} : Props) => {
     );
   };
 
+  const handleSubmitTodo = () => {
+    if (anyError) {
+      return;
+    } else {
+      addTodo({todo, dueDate});
+    };
+  }
+
   return (
     <>
       <Logo />
@@ -99,6 +107,7 @@ const AddTodo = ({addTodo, changePage} : Props) => {
             className={todoError ? 'error' : ''}
             value={todo}
             onChange={handleTodoChange}
+            onKeyDown={e => e.code === "Enter" ? handleSubmitTodo() : null}
           />
           <label>Due Date:</label>
           <DatePicker

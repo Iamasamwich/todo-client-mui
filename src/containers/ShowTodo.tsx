@@ -84,7 +84,11 @@ const ShowTodo = ({todo, updateTodo, deleteTodo} : Props) => {
           >
             {'\u2421'}
           </div>
-
+          <div
+            className='todo-box-icon'
+          >
+            {'\u270F'}
+          </div>
         </div>
       </div>
       {showSteps ? 
