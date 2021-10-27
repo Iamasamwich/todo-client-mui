@@ -1,18 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, MutableRefObject } from 'react';
 import { connect } from 'react-redux';
+import { logout } from '../actions/user';
 
 interface State {
   login: boolean;
   page: string;
 };
 
-const NavBar = ({login, page} : State) => {
+interface Props extends State {
+  logout: () => void;
+}
 
-  console.log(page);
+const NavBar = ({login, page, logout} : Props) => {
 
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(true)
+  const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
-  console.log("menuOpen", menuOpen);
+  useEffect(() => {
+    const handleClickOutside = (e : any) => {
+      console.log(ref.current.className);
+      
+      if (ref.current && ref.current.contains(e.target) && ref.current.className === 'nav-menu') {
+        return;
+      } 
+      setMenuOpen(false);
+    };
+
+  
+  document.body.addEventListener('click', handleClickOutside);
+
+  return () => document.body.removeEventListener('click', handleClickOutside);
+}, []);
+
+
+  const handleLogout = () => {
+    setMenuOpen(false);
+    logout();
+  };
+
+  const ShowMenu = () => {
+    return (
+      <div 
+        ref={ref}
+        className='nav-menu'
+        onBlur={() => setMenuOpen(false)}
+      >
+        {login ? 
+        <div 
+        className='menu-item'
+        onClick={handleLogout}
+        >
+          Log Out
+        </div>
+        : null}
+        <div className='menu-item'>Andother one</div>
+      </div>
+    );
+  };
   
   return (
     <div className='navbar'>
@@ -24,14 +68,10 @@ const NavBar = ({login, page} : State) => {
         <div className='nav-icon'>{'\u2302'}</div>  
       : null}
       {menuOpen ? 
-        <div className='nav-menu' />
+        <ShowMenu />
       : null}
-
-
     </div>
-  )
-
-
+  );
 };
 
 const mapStateToProps = ({login, page} : State) => {
@@ -42,7 +82,7 @@ const mapStateToProps = ({login, page} : State) => {
 };
 
 const mapDispatchToProps = {
-
+  logout
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
