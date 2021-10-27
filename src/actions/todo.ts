@@ -38,15 +38,26 @@ export const addTodo = (body: IaddTodoBody) => async (dispatch : Dispatch) => {
 };
 
 export const updateTodo = (todo : Itodo) => async (dispatch : Dispatch) => {
+  dispatch({type: "STATUS", payload: 'loading'});
+  dispatch({type: "TODO_TO_EDIT", payload: null});
+
   const body = {
     todo: todo.todo,
-    done: todo.done,
+    done: todo.done ? true : false,
     dueDate: todo.dueDate,
   };
-  dispatch({type: "STATUS", payload: 'loading'});
+
+  console.log('xxx');
+  console.log(todo);
+  console.log(body);
+  
+  
+  
+
   return await api(`/todo/${todo.id}`, 'PUT', body)
   .then((resp : ItodoRes) => {
     if (resp.status === 202) {
+      dispatch({type: "CHANGE_PAGE", payload: 'home'});
       dispatch({type: 'STATUS', payload: null})
       dispatch({type: "UPDATE_TODO", payload: resp.todo});
       return;
@@ -78,5 +89,11 @@ export const deleteTodo = (todoId : number) => async (dispatch : Dispatch) => {
 
 export const changeShowTodos = (str : 'active' | 'all') => (dispatch : Dispatch) => {
   dispatch({type: 'SHOW_TODOS', payload: str});
+  return;
+};
+
+export const editTodo = (todoToEdit : Itodo) => async (dispatch : Dispatch) => {
+  await dispatch({type: "TODO_TO_EDIT", payload: todoToEdit});
+  dispatch({type: "CHANGE_PAGE", payload: 'editTodo'});
   return;
 };

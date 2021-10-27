@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { updateTodo, deleteTodo } from '../actions/todo';
+import { updateTodo, deleteTodo, editTodo } from '../actions/todo';
 import { Itodo } from '../interfaces';
+import EditTodo from './EditTodo';
 import ShowSteps from './ShowSteps';
 
 interface Props {
   todo: Itodo;
   updateTodo: (todo: Itodo) => void;
   deleteTodo: (todoId: number) => void;
+  editTodo: (todoToEdit: Itodo) => void;
 };
 
-const ShowTodo = ({todo, updateTodo, deleteTodo} : Props) => {
+const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
 
   const [showSteps, setShowSteps] = useState(false)
 
@@ -86,6 +88,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo} : Props) => {
           </div>
           <div
             className='todo-box-icon'
+            onClick={() => editTodo(todo)}
           >
             {'\u270F'}
           </div>
@@ -100,7 +103,8 @@ const ShowTodo = ({todo, updateTodo, deleteTodo} : Props) => {
 
 const mapDispatchToProps = {
   updateTodo,
-  deleteTodo
+  deleteTodo,
+  editTodo,
 };
 
 export default connect(null, mapDispatchToProps)(ShowTodo);

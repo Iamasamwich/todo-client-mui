@@ -5,6 +5,7 @@ import statusReducer from './statusReducer';
 import todoReducer from './todoReducer';
 import todosFetchedReducer from './todosFetchedReducer';
 import showTodosReducer from './showTodosReducer';
+import todoToUpdateReducer from "./todoToUpdateReducer";
 
 export default combineReducers({
   page: pageReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   appStatus: statusReducer,
   todos: todoReducer,
   showTodos: showTodosReducer,
-  todosFetched: todosFetchedReducer
+  todosFetched: todosFetchedReducer,
+  todoToUpdate: todoToUpdateReducer
 });

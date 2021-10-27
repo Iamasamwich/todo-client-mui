@@ -1,3 +1,9 @@
+export interface IminTodo {
+  id: number;
+  todo: string;
+  dueDate: string;
+}
+
 export interface Istep {
   id: number;
   step: string;
@@ -5,10 +11,7 @@ export interface Istep {
   todoId: number;
 };
 
-export interface Itodo {
-  todo: string;
-  id: number;
-  dueDate: string;
+export interface Itodo extends IminTodo {
   done: boolean;
   steps: Istep[];
 };

@@ -7,6 +7,7 @@ import CreateAccount from './CreateAccount';
 import Status from './Status';
 import ShowTodos from './ShowTodos';
 import AddTodo from './AddTodo';
+import EditTodo from './EditTodo';
 
 interface State {
   login: boolean;
@@ -37,6 +38,8 @@ const App = ({login, page, ping} : Props) => {
           return <ShowTodos />;
         case 'addTodo':
           return <AddTodo />;
+        case 'editTodo':
+          return <EditTodo />;
         default: 
           return <ShowTodos />;
       };
