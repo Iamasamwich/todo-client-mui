@@ -56,15 +56,25 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
     <div className="todo-box">
       {warning ? 
         <div className='delete-todo-warning'>
-          <p>You are about to delete a todo. This action is not reversable!</p>
-          <button
-            onClick={() => deleteTodo(todo.id)}
-          >DELETE IT!</button>
-          <button
-            onClick={() => setWarning(false)}
-          >Cancel</button>
+          <div className='warning-box'>
 
-        </div>
+            <p>You are about to delete a todo!</p>
+            <p>This action is not reversable!</p>
+            <p>To mark as done click the green tick to the right of the todo</p>
+            <div className='form-buttons'>
+
+              <button
+                className='green'
+                onClick={() => deleteTodo(todo.id)}
+                >DELETE IT!</button>
+              <button
+                className='red'
+                onClick={() => setWarning(false)}
+                >Cancel</button>
+            </div>
+
+            </div>
+          </div>
       : null}
       <div className="todo-box-todo">
 

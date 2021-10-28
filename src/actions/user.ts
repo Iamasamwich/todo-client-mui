@@ -12,7 +12,7 @@ export const createAccount = (body : IaddUserBody) => async (dispatch : Dispatch
     } else {
       dispatch({type: "LOGIN", payload: false});
       dispatch({type: "STATUS", payload: resp.status});
-      dispatch({type: "CHANGE_PAGE", payload: 'login'});
+      dispatch({type: "CHANGE_PAGE", payload: 'home'});
     };
   })
   .catch(err => {});

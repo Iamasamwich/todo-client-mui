@@ -330,3 +330,11 @@ p {
   background-color: maroon;
 }
 
+.warning-box {
+  padding: 20px;
+  width: 40%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+

@@ -29,7 +29,7 @@ export const addTodo = (body: IaddTodoBody) => async (dispatch : Dispatch) => {
     if (resp.status === 201) {
       dispatch({type: 'STATUS', payload: null});
       dispatch({type: 'ADD_TODO', payload: resp.todo});
-      dispatch({type: 'CHANGE_PAGE', payload: 'todos'});
+      dispatch({type: 'CHANGE_PAGE', payload: 'home'});
     } else {
       dispatch({type: 'STATUS', payload: [resp.status]});
     };
