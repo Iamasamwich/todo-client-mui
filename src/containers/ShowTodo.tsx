@@ -15,6 +15,7 @@ interface Props {
 const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
 
   const [showSteps, setShowSteps] = useState(false)
+  const [warning, setWarning] = useState(false);
 
   const ShowDueDate = () => {
 
@@ -54,6 +55,18 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
 
   return (
     <div className="todo-box">
+      {warning ? 
+        <div className='delete-todo-warning'>
+          <p>You are about to delete a todo. This action is not reversable!</p>
+          <button
+            onClick={() => deleteTodo(todo.id)}
+          >DELETE IT!</button>
+          <button
+            onClick={() => setWarning(false)}
+          >Cancel</button>
+
+        </div>
+      : null}
       <div className="todo-box-todo">
 
         <div className='todo-box-icons icons'>
@@ -82,7 +95,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
         <div className="todo-box-icons icons">
           <div 
             className='todo-box-icon'
-            onClick={() => deleteTodo(todo.id)}
+            onClick={() => setWarning(true)}
           >
             {'\u2421'}
           </div>

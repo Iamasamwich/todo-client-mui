@@ -273,7 +273,6 @@ p {
 .navbar {
   width: 100%;
   height: 50px;
-
   position: absolute;
   display: flex;
   flex-direction: row-reverse;
@@ -301,6 +300,11 @@ p {
   position: absolute;
   right: 0;
   top: 50px;
+  display: none;
+}
+
+.menu-open {
+  display: block;
 }
 
 .menu-item {
@@ -312,3 +316,17 @@ p {
 .menu-item:hover {
   cursor: pointer;
 }
+
+.delete-todo-warning {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: maroon;
+}
+
