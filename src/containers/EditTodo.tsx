@@ -13,9 +13,10 @@ interface State {
 
 interface Props extends State {
   updateTodo: (todo : Itodo) => void;
+  changePage: (page: string) => void;
 };
 
-const UpdateTodo = ({todoToUpdate, updateTodo} : Props) => {
+const UpdateTodo = ({todoToUpdate, updateTodo, changePage} : Props) => {
 
   const convertDate = (unformattedDate : Date) => {
     return unformattedDate.getFullYear() + '-' 
@@ -143,7 +144,7 @@ const mapStateToProps = ({todoToUpdate} : State) => {
 
 const mapDispatchToProps = {
   changePage,
-  updateTodo
+  updateTodo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateTodo);

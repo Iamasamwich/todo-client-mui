@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Logo from './Logo';
-import { getTodos, changeShowTodos } from '../actions/todo';
+import { getTodos } from '../actions/todo';
 import { changePage } from '../actions/page';
 import ShowTodo from './ShowTodo';
 import { Itodo } from '../interfaces';
@@ -9,13 +9,11 @@ import { Itodo } from '../interfaces';
 interface State {
   todos: Itodo[],
   todosFetched: boolean;
-  // showTodos: 'active' | 'all'
 };
 
 interface Props extends State {
   getTodos: () => void;
   changePage: (page : string) => void;
-  changeShowTodos: (str : 'active' | 'all') => void;
 };
 
 const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
@@ -29,12 +27,17 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
   }, [getTodos, todosFetched]);
 
   const selectedTodos = () => {
+
+    const sortedTodos = todos.sort((a, b) => {
+      return a.dueDate === b.dueDate ? 0 : a.dueDate < b.dueDate ? -1 : 1;
+    });
+
     if (allOrActive === 'active') {
-      return todos.filter(todo => {
+      return sortedTodos.filter(todo => {
         return !todo.done ? todo : null;
       });
     } else {
-      return todos;
+      return sortedTodos;
     };
   };
 
@@ -80,7 +83,6 @@ const mapStateToProps = ({todos, todosFetched} : State) => {
 const mapDispatchToProps = {
   getTodos,
   changePage,
-  changeShowTodos
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowTodos);

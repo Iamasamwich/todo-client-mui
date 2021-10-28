@@ -47,13 +47,6 @@ export const updateTodo = (todo : Itodo) => async (dispatch : Dispatch) => {
     dueDate: todo.dueDate,
   };
 
-  console.log('xxx');
-  console.log(todo);
-  console.log(body);
-  
-  
-  
-
   return await api(`/todo/${todo.id}`, 'PUT', body)
   .then((resp : ItodoRes) => {
     if (resp.status === 202) {
@@ -85,11 +78,6 @@ export const deleteTodo = (todoId : number) => async (dispatch : Dispatch) => {
     };
   })
   .catch(err => {});
-};
-
-export const changeShowTodos = (str : 'active' | 'all') => (dispatch : Dispatch) => {
-  dispatch({type: 'SHOW_TODOS', payload: str});
-  return;
 };
 
 export const editTodo = (todoToEdit : Itodo) => async (dispatch : Dispatch) => {

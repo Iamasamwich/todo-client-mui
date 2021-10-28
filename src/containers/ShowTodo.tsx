@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { updateTodo, deleteTodo, editTodo } from '../actions/todo';
 import { Itodo } from '../interfaces';
-import EditTodo from './EditTodo';
 import ShowSteps from './ShowSteps';
 
 interface Props {
