@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createAccount } from '../actions/user';
+import { changePage } from '../actions/page';
 import { IaddUserBody } from '../interfaces';
 import Logo from './Logo';
 
 interface Props {
   createAccount : (body : IaddUserBody) => void;
+  changePage: (page: 'home') => void;
 };
 
-const CreateAccount = ({createAccount} : Props) => {
+const CreateAccount = ({createAccount, changePage} : Props) => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -75,7 +77,10 @@ const CreateAccount = ({createAccount} : Props) => {
           </button>
           : null
         }
-        <button className='red'>
+        <button 
+          className='red'
+          onClick={() => changePage('home')}
+        >
           Cancel
         </button>
       </div>
@@ -93,7 +98,6 @@ const CreateAccount = ({createAccount} : Props) => {
             className={nameError ? 'error' : ''}
             value={name}
             onChange={e => setName(e.target.value)}
-
           />
           <label>Email:</label>
           <input
@@ -123,7 +127,8 @@ const CreateAccount = ({createAccount} : Props) => {
 };
 
 const mapDispatchToProps = {
-  createAccount
+  createAccount,
+  changePage
 };
 
 export default connect(null, mapDispatchToProps)(CreateAccount);

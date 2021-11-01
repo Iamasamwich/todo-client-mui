@@ -59,6 +59,14 @@ const Login = ({login, changePage} : Props) => {
     );
   };
 
+  const handleEnter = () => {
+    if (anyError) {
+      return;
+    } else {
+      login({email, pword});
+    };
+  };
+
   return (
     <>
       <Logo />
@@ -70,6 +78,7 @@ const Login = ({login, changePage} : Props) => {
             className={emailError ? 'error' : ''}
             value={email}
             onChange={e => setEmail(e.target.value.toLowerCase())}
+            onKeyDown={e => e.code === 'Enter' ? handleEnter() : null}
           />
           <label>Password:</label>
           <input
@@ -77,6 +86,7 @@ const Login = ({login, changePage} : Props) => {
             type='password'
             value={pword}
             onChange={e => setPword(e.target.value)}
+            onKeyDown={e => e.code === 'Enter' ? handleEnter() : null}
           />
           {!anyError ? <ShowButtons /> : null}
           <p 
