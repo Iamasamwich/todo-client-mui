@@ -19,6 +19,8 @@ export const createAccount = (body : IaddUserBody) => async (dispatch : Dispatch
 };
 
 export const logout = () => (dispatch : Dispatch) => {
+  console.log('logging out');
+  
   dispatch({type: 'STATUS', payload: 'loading'});
 
   api('/login', 'PUT')

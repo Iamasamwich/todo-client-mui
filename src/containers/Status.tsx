@@ -1,26 +1,19 @@
 import { connect } from "react-redux";
-import { setStatus } from '../actions/status';
+import GenericError from "./status_pages/GenericError";
+import Loading from './status_pages/Loading';
 
 interface State {
   appStatus : string | number | null;
 };
 
-interface Props extends State {
-  setStatus : (status : string | number | null) => void;
-};
-
-const Status = ({appStatus, setStatus} : Props) => {
+const Status = ({appStatus} : State) => {
 
   const ShowStatus = () => {
     switch (appStatus) {
       case 'loading':
-        return "Loading...";
-      case 'login_fail':
-        return "Incorrect Login Details";
-      case 409:
-        return "User Email already taken";
-      default: 
-        return "Error With Request";
+        return <Loading />
+      default:
+        return <GenericError statusCode={appStatus} />
     };
   };
 
@@ -28,28 +21,15 @@ const Status = ({appStatus, setStatus} : Props) => {
     return null;
   } else {
     return (
-      <div 
-        className="Status"
-        onClick={() => setStatus(null)}
-        >
-        <div className="status-box">
-          <h1>Error Error</h1>
-          <h1>{ShowStatus()}</h1>
-          <p>*click anywhere to dismiss*</p>
-        </div>
-      </div>
+      <ShowStatus />
     );
   }
 };
 
-const mapStateToProps = ({appStatus} : Props) => {
+const mapStateToProps = ({appStatus} : State) => {
   return {
     appStatus
   };
 };
 
-const mapDispatchToProps = {
-  setStatus
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Status);
+export default connect(mapStateToProps)(Status);

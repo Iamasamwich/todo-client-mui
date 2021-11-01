@@ -6,15 +6,14 @@ export const login = (body : IloginBody) => async (dispatch : Dispatch) => {
   await api('/login', 'POST', body)
   .then((res : Ires) => {
     if (res.status === 200) {
-      dispatch({type: 'LOGIN', payload: true});
+      return dispatch({type: 'LOGIN', payload: true});
     } else {
-      if (res.status === 404) {
-        dispatch({type: 'LOGIN', payload: false});
-        dispatch({type: 'STATUS', payload: 'login_fail'});
-      };
+      dispatch({type: 'LOGIN', payload: false});
+      dispatch({type: 'STATUS', payload: res.status});
+      return;
     };
   })
   .catch(err => {
-    dispatch({type: 'LOGIN', payload: false});
+    return dispatch({type: 'LOGIN', payload: false});
   });
 };

@@ -2,7 +2,6 @@ import { Dispatch } from "redux";
 import api from "../api/api";
 import { IaddStepBody, IupdateStepBody, IstepRes } from "../interfaces";
 
-
 export const addStep = (body : IaddStepBody) => async (dispatch : Dispatch) => {
   dispatch({type: "STATUS", payload: 'loading'});
   return await api(`/todo/${body.todoId}/step`, 'POST', body)
@@ -10,6 +9,10 @@ export const addStep = (body : IaddStepBody) => async (dispatch : Dispatch) => {
     if (resp.status === 201) {
       dispatch({type: "STATUS", payload: null});
       dispatch({type: "ADD_STEP", payload: resp.step});
+      return;
+    } else if (resp.status === 401) {
+      dispatch({type: 'LOGIN', payload: false});
+      dispatch({type: 'STATUS', payload: 401});
       return;
     } else {
       return dispatch({type: "STATUS", payload: resp.status});
@@ -24,8 +27,13 @@ export const updateStep = (details: IupdateStepBody) => async (dispatch : Dispat
     if (resp.status === 202) {
       dispatch({type: "STATUS", payload: null});
       dispatch({type: "UPDATE_STEP", payload: resp.step});
+      return;
+    } else if (resp.status === 401) {
+      dispatch({type: 'LOGIN', payload: false});
+      dispatch({type: 'STATUS', payload: 401});
+      return;
     } else {
-      dispatch({type: "STATUS", payload: resp.status});
+      return dispatch({type: "STATUS", payload: resp.status});
     };
   })
   .catch(err => {});
@@ -38,6 +46,10 @@ export const deleteStep = (stepId: number, todoId: number) => async (dispatch : 
     if (resp.status === 202) {
       dispatch({type: "STATUS", payload: null});
       dispatch({type: "REMOVE_STEP", payload: {stepId, todoId}});
+      return;
+    } else if (resp.status === 401) {
+      dispatch({type: 'LOGIN', payload: false});
+      dispatch({type: 'STATUS', payload: 401});
       return;
     } else {
       dispatch({type: "STATUS", payload: resp.status});

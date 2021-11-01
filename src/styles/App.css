@@ -148,7 +148,9 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
+  background-color: white;
 }
 
 .todos-box {
@@ -335,5 +337,17 @@ p {
   background-color: white;
   display: flex;
   flex-direction: column;
+}
+
+.spinner {
+  margin-top: 20px;
+  height: 50px;
+  width: 50px;
+  background-color: black;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100%{ transform: rotate(89deg)}
 }
 

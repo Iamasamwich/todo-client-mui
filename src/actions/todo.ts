@@ -9,8 +9,12 @@ export const getTodos = () => async (dispatch : any, getState : any) => {
   .then((resp : ItodosRes) => {
     if (resp.status === 200) {
       dispatch({type: "TODOS_FETCHED", payload: true});
-      dispatch({type: "STATUS", payload: null});
       dispatch({type: "SET_TODOS", payload: resp.todos});
+      dispatch({type: "STATUS", payload: null});
+      return;
+    } else if (resp.status === 401) {
+      dispatch({type: 'LOGIN', payload: false});
+      dispatch({type: 'STATUS', payload: 401});
       return;
     } else {
       dispatch({type: 'STATUS', payload: resp.status});
@@ -30,8 +34,13 @@ export const addTodo = (body: IaddTodoBody) => async (dispatch : Dispatch) => {
       dispatch({type: 'STATUS', payload: null});
       dispatch({type: 'ADD_TODO', payload: resp.todo});
       dispatch({type: 'CHANGE_PAGE', payload: 'home'});
+      return;
+    } else if (resp.status === 401) {
+      dispatch({type: 'LOGIN', payload: false});
+      dispatch({type: 'STATUS', payload: 401});
+      return;
     } else {
-      dispatch({type: 'STATUS', payload: [resp.status]});
+      return dispatch({type: 'STATUS', payload: [resp.status]});
     };
   })
   .catch(err => {});
@@ -54,6 +63,10 @@ export const updateTodo = (todo : Itodo) => async (dispatch : Dispatch) => {
       dispatch({type: 'STATUS', payload: null})
       dispatch({type: "UPDATE_TODO", payload: resp.todo});
       return;
+    } else if (resp.status === 401) {
+      dispatch({type: 'LOGIN', payload: false});
+      dispatch({type: 'STATUS', payload: 401});
+      return;
     } else {
       dispatch({type: 'STATUS', payload: resp.status});
     };
@@ -71,6 +84,10 @@ export const deleteTodo = (todoId : number) => async (dispatch : Dispatch) => {
     if (resp.status === 202) {
       dispatch({type: 'STATUS', payload: null});
       dispatch({type: 'REMOVE_TODO', payload: {todoId}});
+      return;
+    } else if (resp.status === 401) {
+      dispatch({type: 'LOGIN', payload: false});
+      dispatch({type: 'STATUS', payload: 401});
       return;
     } else {
       dispatch({type: 'STATUS', payload: resp.status});
