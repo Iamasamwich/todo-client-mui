@@ -33,12 +33,30 @@ export interface ItodoRes extends Ires {
   todo: Itodo;
 };
 
+export interface IupdateUserRes extends Ires{
+  user: {
+    name: string;
+    email: string;
+  };
+};
+
+export interface IupdatePwordBody {
+  pword: string;
+  newPword: string;
+};
+
 export interface IloginBody {
   email: string;
   pword: string;
 }
 
 export interface IaddUserBody {
+  name: string;
+  email: string;
+  pword: string;
+};
+
+export interface IupdateUserBody {
   name: string;
   email: string;
   pword: string;

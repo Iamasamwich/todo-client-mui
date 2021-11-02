@@ -9,6 +9,7 @@ import ShowTodos from './ShowTodos';
 import AddTodo from './AddTodo';
 import EditTodo from './EditTodo';
 import EditUser from './EditUser';
+import UpdatePassword from './UpdatePassword';
 
 interface State {
   login: boolean;
@@ -43,6 +44,8 @@ const App = ({login, page, ping} : Props) => {
           return <EditTodo />;
         case 'editUser':
           return <EditUser />
+        case 'updatePassword':
+          return <UpdatePassword />
         default: 
           return <ShowTodos />;
       };
