@@ -5,13 +5,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
-  background-color: blanchedalmond;
-}
-
 #root {
   display: flex;
   justify-content: center;
+  min-width: 320px;
 }
 
 h1 {
@@ -58,8 +55,7 @@ p {
 }
 
 .App {
-  max-width: 960px;
-  width: 100%;
+  width: 960px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -71,9 +67,11 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 800px;
+  width: 768px;
   height: 300px;
   background-color: cadetblue;
+  border-radius: 50%;
+  border: 50px solid white;
 }
 
 .minusLogo {
@@ -82,6 +80,7 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: chartreuse;
 }
 
 .form-box {
@@ -167,11 +166,18 @@ p {
   flex-direction: row;
 }
 
+
 .todo-box {
   display: flex;
   flex-direction: column;
   margin: 10px;
   min-height: 35px;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+.todo-box:last-of-type {
+  border-bottom: none;
 }
 
 .icons {
@@ -241,7 +247,7 @@ p {
 .step {
   display: flex;
   flex-direction: row;
-  height: 25px;
+  min-height: 25px;
 }
 
 .step-icons {
@@ -274,6 +280,7 @@ p {
 
 .step-input > button {
   height: 25px;
+  width: 80px;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -284,7 +291,7 @@ p {
   position: absolute;
   display: flex;
   flex-direction: row-reverse;
-  top: 0;
+  top: -20px;
   left: 0;
 }
 
@@ -307,6 +314,8 @@ p {
   right: 0;
   top: 50px;
   display: none;
+  border: 1px solid black;
+  z-index: 50;
 }
 
 .menu-open {
@@ -354,5 +363,50 @@ p {
 
 @keyframes spin {
   100%{ transform: rotate(89deg)}
+}
+
+@media screen and (max-width: 960px)  {
+  .app {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Logo {
+    width: 100%;
+    height: 220px;
+    border: 20px solid white;
+  }
+
+  .navbar {
+    top: -20px;
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .Logo {
+    height: 120px;
+    margin-top: 20px;
+  }
+
+  .navbar {
+    top: -40px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .form-box {
+    width: 100%;
+  }
+
+  .form-buttons > button {
+    font-size: 20px;
+  }
 }
 

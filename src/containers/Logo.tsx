@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <div className="Logo">
       <NavBar />
-      Logo
+      <h1 className="logo-text">THINGS TO DO</h1>
     </div>
   )
 };
