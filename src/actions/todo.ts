@@ -75,12 +75,9 @@ export const updateTodo = (todo : Itodo) => async (dispatch : Dispatch) => {
 };
 
 export const deleteTodo = (todoId : number) => async (dispatch : Dispatch) => {
-  console.log('deleting todo #', todoId);
-  
   dispatch({type: 'STATUS', payload: 'loading'});
   await api(`/todo/${todoId}`, "DELETE")
   .then((resp : Ires) => {
-    console.log(resp);
     if (resp.status === 202) {
       dispatch({type: 'STATUS', payload: null});
       dispatch({type: 'REMOVE_TODO', payload: {todoId}});

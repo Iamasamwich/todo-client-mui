@@ -84,13 +84,9 @@ const EditUser = ({updateUser, setStatus, changePage} : Props) => {
 
   const handleSubmit = () => {
     if (anyError) {
-      console.log('errors, skipping');
-      
       return;
     };
     if (name === returned.name && email === returned.email) {
-      console.log('no difference, returning');
-      
       return;
     };
     updateUser({name, email, pword});

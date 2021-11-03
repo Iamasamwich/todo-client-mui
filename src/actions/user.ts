@@ -3,8 +3,6 @@ import api from "../api/api";
 import { IaddUserBody, Ires, IupdatePwordBody, IupdateUserBody, IupdateUserRes } from "../interfaces";
 
 export const createAccount = (body : IaddUserBody) => async (dispatch : Dispatch) => {
-  console.log('here');
-  
   return await api('/user', 'POST', body)
   .then((resp : Ires) => {
     if (resp.status === 201) {
@@ -43,7 +41,6 @@ export const updateUser = (body : IupdateUserBody ) => async (dispatch : Dispatc
 
   return await api('/user', 'PUT', body)
   .then((resp : IupdateUserRes)  => {
-    console.log(resp);
     if (resp.status === 401) {
       dispatch({type: 'LOGIN', payload: false});
       dispatch({type: 'STATUS', payload: resp.status});
@@ -60,11 +57,8 @@ export const updateUser = (body : IupdateUserBody ) => async (dispatch : Dispatc
 };
 
 export const updatePassword = (body : IupdatePwordBody) => (dispatch : Dispatch) => {
-  console.log(body);
-
   return api('/user/password', 'PUT', body) 
   .then((resp : Ires) => {
-    console.log(resp);
     if (resp.status === 401) {
       dispatch({type: 'LOGIN', payload: false});
       dispatch({type: 'STATUS', payload: resp.status});

@@ -56,12 +56,8 @@ const UpdatePassword = ({changePage, updatePassword} : Props) => {
 
   const handleSubmit = () => {
     if (anyError || pword === newPword) {
-      console.log('returning');
-      
       return;
     } else {
-      console.log('submitting');
-      console.log({pword, newPword});
       updatePassword({pword, newPword});
     };
   };

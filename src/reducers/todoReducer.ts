@@ -32,10 +32,6 @@ const todoReducer = (state = [], action : Action) => {
       });
 
     case "REMOVE_TODO":
-
-      console.log(action.payload);
-        
-
       const removeTodoStateTodos = [...state] as Itodo[]; 
       const removeTodoPayload = action.payload as IremoveTodo;
       return removeTodoStateTodos.filter(todo => {
