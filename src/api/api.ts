@@ -7,11 +7,19 @@ interface Body {
   pword?: string;
 };
 
-// const host = 'http://localhost:3000';
-const host = 'http://192.168.43.5:3000';
+const host = () => {
+  switch (window.location.host) {
+    case 'localhost:3001':
+      return 'http://localhost:3000';
+    case '192.168.43.5:3001':
+      return 'http://192.168.43.5:3000';
+    default:
+      return '';
+  };
+};
 
 const api = (path : string, method : "POST" | "GET" | "PUT" | "DELETE", body?: Body) => {
-  return fetch(host + path, {
+  return fetch(host() + path, {
     method,
     headers: {
       'Content-Type' : 'application/json'

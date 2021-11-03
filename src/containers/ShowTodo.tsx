@@ -60,7 +60,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
 
             <p>You are about to delete a todo!</p>
             <p>This action is not reversable!</p>
-            <p>To mark as done click the green tick to the right of the todo</p>
+            <p>To mark as done click the green tick to the left of the todo.</p>
             <div className='form-buttons'>
 
               <button

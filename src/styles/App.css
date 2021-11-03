@@ -265,6 +265,7 @@ p {
   margin-left: 10px;
   font-size: 20px;
   flex-grow: 1;
+  max-width: 100%;
 }
 
 .step-input {
@@ -275,7 +276,8 @@ p {
 .step-input > input {
   height: 25px;
   font-size: 20px;
-  flex-grow: 1;
+  width: calc(100% - 80px);
+  flex-grow: 4;
 }
 
 .step-input > button {
@@ -384,6 +386,10 @@ p {
 
   h1 {
     font-size: 3em;
+  }
+
+  .warning-box {
+    width: 80%;
   }
 }
 
