@@ -1,5 +1,6 @@
 import { Dispatch } from "redux";
 import api from "../api/api";
+
 import { IaddUserBody, Ires, IupdatePwordBody, IupdateUserBody, IupdateUserRes } from "../interfaces";
 
 export const createAccount = (body : IaddUserBody) => async (dispatch : Dispatch) => {
@@ -24,8 +25,14 @@ export const logout = () => (dispatch : Dispatch) => {
   api('/login', 'PUT')
   .then(resp => {
     if (resp.status === 200) {
-      dispatch({type: 'STATUS', payload: null});
+
+      
+      console.log(document.cookie);
+
       dispatch({type: 'LOGIN', payload: false});
+      dispatch({type: 'SET_TODOS', payload: []});
+      dispatch({type: 'TODOS_FETCHED', payload: false});
+      dispatch({type: 'STATUS', payload: null});
       dispatch({type: 'CHANGE_PAGE', payload: 'home'});
       return;
     } else {

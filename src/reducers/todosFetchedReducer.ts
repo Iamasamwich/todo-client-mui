@@ -6,7 +6,7 @@ interface Action {
 const todosFetchedReducer = (state = false, action : Action) => {
   switch(action.type) {
     case "TODOS_FETCHED": 
-      return true;
+      return action.payload;
     default: 
       return state;
   }

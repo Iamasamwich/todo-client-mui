@@ -44,6 +44,7 @@ p {
 
 .greyText {
   color: grey;
+  opacity: 0.5;
 }
 
 .red {

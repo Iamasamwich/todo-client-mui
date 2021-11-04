@@ -23,7 +23,7 @@ const ShowStep = ({step, updateStep, deleteStep} : Props) => {
   return (
     <div className='step'>
       <div 
-        className={step.done ? 'greenText step-icons icons' : 'step-icons icons'}
+        className={step.done ? 'greenText step-icons icons' : 'greyText step-icons icons'}
         onClick={() => handleStepDoneClick()}
       >
         {step.done ? '\u2611' : '\u2611'}
