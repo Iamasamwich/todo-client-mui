@@ -9,6 +9,7 @@
   display: flex;
   justify-content: center;
   min-width: 320px;
+  min-height: 100vh;
 }
 
 h1 {
@@ -255,6 +256,7 @@ p {
   justify-content: center;
   align-items: center;
   margin-left: 5px;
+  margin-right: 5px;
 }
 
 .step-icons:hover {
@@ -345,6 +347,7 @@ p {
   align-items: center;
   flex-direction: column;
   background-color: maroon;
+  z-index: 2;
 }
 
 .warning-box {
