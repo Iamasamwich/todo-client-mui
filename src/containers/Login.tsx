@@ -1,37 +1,31 @@
+import { Typography, Box, TextField, ButtonGroup, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import {login} from '../actions/login';
-import {changePage} from '../actions/page';
-import { IloginBody } from '../interfaces';
-import Logo from './Logo';
+import { login } from '../actions/login';
+import { changePage } from '../actions/page';
 
+import { connect } from 'react-redux';
+import { IloginBody } from '../interfaces';
 
 interface Props {
-  login: (body: IloginBody) => void;
+  login: (body : IloginBody) => void;
   changePage: (page : string) => void;
 };
 
 const Login = ({login, changePage} : Props) => {
 
-  const [email, setEmail] = useState('');
-  const [pword, setPword] = useState('');
-
-  const [emailError, setEmailError] = useState(false);
-  const [pwordError, setPwordError] = useState(false);
-
-  const [anyError, setAnyError] = useState(false);
+  const [email, setEmail] = useState <string> ('');
+  const [emailError, setEmailError] = useState <boolean> (false);
+  const [pword, setPword] = useState <string> ('');
+  const [pwordError, setPwordError] = useState <boolean> (false);
+  const [anyError, setAnyError] = useState <boolean> (false);
 
   useEffect(() => {
     const re = /^[a-z0-9.]+@[a-z0-9]+.[a-z0-9]+.[a-z0-9]{1,3}$/;
-    if (!re.test(email)) {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    };
+    setEmailError(!re.test(email));
   }, [email]);
 
   useEffect(() => {
-    if (pword.length > 0) {
+    if (pword) {
       setPwordError(false);
     } else {
       setPwordError(true);
@@ -46,64 +40,68 @@ const Login = ({login, changePage} : Props) => {
     };
   }, [emailError, pwordError]);
 
-  const ShowButtons = () => {
-    return (
-      <div className='form-buttons'>
-        <button 
-          className='green'
-          onClick={() => login({email, pword})}
-        >
-          Login
-        </button>
-      </div>
-    );
-  };
-
-  const handleEnter = () => {
+  const handleSubmit = (e : React.SyntheticEvent) => {
+    e.preventDefault();
     if (anyError) {
       return;
-    } else {
-      login({email, pword});
     };
+    login({email, pword});
   };
 
   return (
-    <>
-      <Logo />
-      <div className='minusLogo'>
-        <h1>LOGIN</h1>
-        <div className='form-box'>
-          <label>Email:</label>
-          <input 
-            className={emailError ? 'error' : ''}
+    <Box> 
+      <Typography
+        variant='h2'
+        align='center'
+      >
+        Login
+      </Typography>
+      <Box 
+        component='form'
+        onSubmit={handleSubmit}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          maxWidth: '80%'
+        }}
+      >
+          <TextField 
+            variant='standard' 
+            label='Email'
             value={email}
-            onChange={e => setEmail(e.target.value.toLowerCase())}
-            onKeyDown={e => e.code === 'Enter' ? handleEnter() : null}
+            onChange={e => setEmail(e.target.value)}
+            error={emailError}
           />
-          <label>Password:</label>
-          <input
-            className={pwordError ? 'error' : ''}
+          <TextField
+            variant='standard'
             type='password'
+            label='Password'
             value={pword}
             onChange={e => setPword(e.target.value)}
-            onKeyDown={e => e.code === 'Enter' ? handleEnter() : null}
+            error={pwordError}
           />
-          {!anyError ? <ShowButtons /> : null}
-          <p 
-            className='fake-link'
+        <ButtonGroup>
+          {!anyError ?
+          <Button
+            variant='contained'
+            type='submit'
+            color='success'
+          >Login</Button>
+          : null}
+        </ButtonGroup>
+        <ButtonGroup>
+          <Button
+            variant='text'
             onClick={() => changePage('createAccount')}
-          >
-            Create Account
-          </p>
-        </div>
-      </div>
-    </>
-  )
+          >Create An Account</Button>
+        </ButtonGroup>
+      </Box>
+    </Box>
+  );
 };
 
 const mapDispatchToProps = {
-  login,
-  changePage
+  login, changePage
 };
 
 export default connect(null, mapDispatchToProps)(Login);

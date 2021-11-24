@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {ping} from '../actions/ping';
 
+import Layout from './Layout';
+
 import Login from './Login';
 import CreateAccount from './CreateAccount';
 import Status from './Status';
@@ -53,10 +55,10 @@ const App = ({login, page, ping} : Props) => {
   };
 
   return (
-    <div className="App">
-      <Status />
-      <ShowPage />
-    </div>
+      <Layout>
+        <Status />
+        <ShowPage />
+      </Layout>
   );
 };
 

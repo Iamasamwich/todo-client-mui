@@ -1,7 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { changePage } from '../actions/page';
+
 import { logout } from '../actions/user';
+import { changePage } from '../actions/page';
+
+import {AppBar, Toolbar, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import MenuIcon from '@mui/icons-material/Menu';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 interface State {
   login: boolean;
@@ -9,13 +16,13 @@ interface State {
 };
 
 interface Props extends State {
+  changePage: (page : string) => void;
   logout: () => void;
-  changePage: (page: string) => void;
-}
+};
 
-const NavBar = ({login, page, logout, changePage} : Props) => {
+const NavBar = ({page, login, changePage, logout} : Props) => {
 
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [showMenu, setShowMenu] = useState <boolean> (false);
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
@@ -23,84 +30,85 @@ const NavBar = ({login, page, logout, changePage} : Props) => {
       if (ref.current && ref.current.contains(e.target)) {
         return;
       } else {
-        setMenuOpen(false);
+        setShowMenu(false);
       };
     };
 
-    document.body.addEventListener('click', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
 
-    return () => document.body.removeEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
-  const handleMenuClick = (item : string) => {
-    setMenuOpen(false)
-    switch (item) {
-      case 'logout':
-        return logout();
-      default:
-        return;
-    };
-  };
-
-  const ShowMenu = () => {
-    return (
-      <div 
-        className={`nav-menu ${menuOpen ? 'menu-open' : ''}`}
+  return (
+    <AppBar
+      ref={ref}
+    >
+      <Toolbar
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end'
+        }}
       >
-        {login ? 
-        <>
-          <div 
-            className='menu-item'
-            onClick={() => handleMenuClick('logout')}
+        {page !== 'home' && 
+          <IconButton size='large'>
+            <HomeOutlinedIcon />
+          </IconButton>
+        }
+        {login &&
+          <IconButton 
+            size='large'
+            onClick={() => setShowMenu(!showMenu)}
           >
-            Log Out
-          </div>
-          <div
-            className='menu-item'
+            <MenuIcon />
+          </IconButton>
+        }
+      </Toolbar>
+      {(login && showMenu) && 
+        <List
+          sx={{
+            border: '1px solid black',
+            position: 'absolute',
+            backgroundColor: 'rgba(255, 255, 255, 1)',
+            right: '30px',
+            top: '80px',
+            color: 'black'
+          }}
+        >
+          <ListItemButton
+            onClick={logout}
+          >
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText>
+              Logout
+            </ListItemText>
+          </ListItemButton>
+          <ListItemButton
             onClick={() => changePage('editUser')}
           >
-            Profile
-          </div>
-        </>
-        : null}
-      </div>
-    );
-  };
-  
-  return (
-    <div 
-      ref={ref}
-      className='navbar'
-    >
-      {login ? 
-        <div 
-          className='nav-icon'
-          onClick={() => setMenuOpen(!menuOpen)}
-        >{'\u2630'}</div>
-      : null}
-      {page !== 'home' ?
-        <div 
-          className='nav-icon'
-          onClick={() => changePage('home')}
-        >
-          {'\u2302'}
-        </div>  
-      : null}
-      <ShowMenu />
-    </div>
+            <ListItemIcon>
+              <PersonOutlineIcon />
+            </ListItemIcon>
+            <ListItemText>
+              Profile
+            </ListItemText>
+          </ListItemButton>
+        </List>
+      }
+    </AppBar>
   );
 };
 
-const mapStateToProps = ({login, page} : State) => {
+const mapStateToProps = ({page, login} : State) => {
   return {
-    login,
-    page
+    page, login
   };
 };
 
 const mapDispatchToProps = {
-  logout,
-  changePage
-}
+  changePage,
+  logout
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
