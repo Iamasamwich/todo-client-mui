@@ -1,4 +1,4 @@
-import { Typography, Box, TextField, ButtonGroup, Button } from '@mui/material';
+import { Typography, Box, TextField, ButtonGroup, Button, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { login } from '../actions/login';
 import { changePage } from '../actions/page';
@@ -49,7 +49,13 @@ const Login = ({login, changePage} : Props) => {
   };
 
   return (
-    <Box> 
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    > 
       <Typography
         variant='h2'
         align='center'
@@ -61,40 +67,46 @@ const Login = ({login, changePage} : Props) => {
         onSubmit={handleSubmit}
         sx={{
           display: 'flex',
+          flexGrow: 1,
           flexDirection: 'column',
-          maxWidth: '80%'
+          width: '80%'
         }}
       >
-          <TextField 
-            variant='standard' 
-            label='Email'
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            error={emailError}
-          />
-          <TextField
-            variant='standard'
-            type='password'
-            label='Password'
-            value={pword}
-            onChange={e => setPword(e.target.value)}
-            error={pwordError}
-          />
-        <ButtonGroup>
+        <TextField 
+          variant='standard' 
+          label='Email'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          error={emailError}
+        />
+        <TextField
+          variant='standard'
+          type='password'
+          label='Password'
+          value={pword}
+          onChange={e => setPword(e.target.value)}
+          error={pwordError}
+        />
+        <Stack
+          pt={2}
+          spacing={2}
+        >
           {!anyError ?
-          <Button
+            <Button
             variant='contained'
             type='submit'
             color='success'
-          >Login</Button>
+            sx={{
+            }}
+            >
+              Login
+            </Button>
           : null}
-        </ButtonGroup>
-        <ButtonGroup>
           <Button
             variant='text'
             onClick={() => changePage('createAccount')}
-          >Create An Account</Button>
-        </ButtonGroup>
+            >Create An Account</Button>
+        </Stack>
       </Box>
     </Box>
   );
