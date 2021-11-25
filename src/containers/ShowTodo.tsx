@@ -33,7 +33,6 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
     } else {
       text = `${daysTilDue} days until due.`
     };
-
     return <h3>{text}</h3>
   };
 
