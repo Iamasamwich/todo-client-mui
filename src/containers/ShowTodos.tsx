@@ -1,6 +1,7 @@
+import { Box, Typography, Stack, Button } from '@mui/material';
+
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import Logo from './Logo';
 import { getTodos } from '../actions/todo';
 import { changePage } from '../actions/page';
 import ShowTodo from './ShowTodo';
@@ -42,34 +43,40 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
   };
 
   return (
-    <>
-      <Logo />
-      <div className='minusLogo'>
-        <div className="form-buttons">
-          <button 
-            className='green'
-            onClick={() => changePage('addTodo')}
-          >
-            Add A Todo
-          </button>
-          <button
-            onClick={() => setAllOrActive(allOrActive === 'active' ? 'all' : 'active')}
-          >
-            {allOrActive === 'active' ? 
-              'Show All Todos'
-              : 
-              'Show Active Todos'
-            }
-          </button>
-        </div>
-
-        <div className='todos-box'>
-          {selectedTodos().map(todo => {
-            return <ShowTodo todo={todo} key={todo.id} />
-          })}
-        </div>
-      </div>
-    </>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column'
+      }}
+    >
+      <Typography
+        variant='h2'
+        align='center'
+      >
+        Your Todos
+      </Typography>
+      <Stack
+        direction='row'
+        spacing={2}
+      >
+        <Button
+          variant='contained'
+          onClick={() => changePage('addTodo')}
+        >
+          Add A Todo
+        </Button>
+        <Button
+          variant='contained'
+          onClick={() => setAllOrActive(allOrActive === 'active' ? 'all':'active')}
+        >
+          {allOrActive === 'all' ? 'Show Active Todos' : 'Show All Todos'}
+        </Button>
+      </Stack>
+      <Box>
+        {selectedTodos().map(todo => <ShowTodo todo={todo} key={todo.id} />)}
+      </Box>
+    </Box>
   );
 };
 
