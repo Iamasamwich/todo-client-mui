@@ -1,11 +1,13 @@
+import { Box, Typography, TextField, Stack, Button } from '@mui/material';
+
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { setStatus } from '../actions/status';
 import { updateUser } from '../actions/user';
 import { changePage } from '../actions/page';
 import api from '../api/api';
-import Logo from './Logo';
 import { IupdateUserBody } from '../interfaces';
+import styles from '../styles/styles';
 
 interface Props {
   updateUser: (user : IupdateUserBody) => void;
@@ -82,7 +84,8 @@ const EditUser = ({updateUser, setStatus, changePage} : Props) => {
     };
   }, [nameError, emailError, pwordError]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e : React.SyntheticEvent) => {
+    e.preventDefault();
     if (anyError) {
       return;
     };
@@ -92,70 +95,74 @@ const EditUser = ({updateUser, setStatus, changePage} : Props) => {
     updateUser({name, email, pword});
   };
 
-  const ShowButtons = () => {
-    return (
-      <>
-        <div className="form-buttons">
-          {!anyError ? 
-            <button
-              className='green'
-              onClick={handleSubmit}
+  return (
+    <Box sx={styles.main}>
+      <Typography
+        variant='h2'
+        align='center'
+      >
+        Update Your Details
+      </Typography>
+      {loading ? 
+          <div className='spinner' />
+      :
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        sx={styles.form}
+      >
+        <TextField
+          variant='standard'
+          label='Name'
+          value={name}
+          onChange={e => setName(e.target.value)}
+          error={nameError}
+        />
+        <TextField
+          variant='standard'
+          label='Email'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          error={emailError}
+        />
+        <TextField
+          variant='standard'
+          label='Password'
+          type='password'
+          value={pword}
+          onChange={e => setPword(e.target.value)}
+          error={pwordError}
+        />
+        <Stack
+          pt={2}
+          spacing={2}
+        >
+          {!anyError ?
+            <Button
+              variant='contained'
+              color='success'
+              type='submit'
             >
-              Update User
-            </button>
-            : null
-          }
-          <button 
-            className='red'
+              Update Details
+            </Button>
+          : null}
+          <Button
+            variant='contained'
+            onClick={() => changePage('updatePassword')}
+          >
+            Update Password
+          </Button>
+          <Button
+            variant='contained'
+            color='warning'
             onClick={() => changePage('home')}
           >
             Cancel
-          </button>
-        </div>
-
-        <div className='form-buttons'>
-          <button
-            className='blue'
-            onClick={() => changePage('updatePassword')}
-          >Update Password</button>
-        </div>
-      </>
-    );
-  };
-
-  return (
-    <>
-      <Logo />
-      <div className='minusLogo'>
-        <h1>Edit Your Details</h1>
-        {loading ?
-          <div className='spinner' />
-      :
-        <div className='form-box'>
-          <label>Name:</label>
-          <input
-            className={nameError ? 'error' : ''}
-            value={name}
-            onChange={e => setName(e.target.value)}
-            />
-          <label>Email:</label>
-          <input
-            className={emailError ? 'error' : ''}
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            />
-          <label>Password:</label>
-          <input
-            className={pwordError ? 'error' : ''}
-            value={pword}
-            onChange={e => setPword(e.target.value)}
-            type='password'
-            />
-          <ShowButtons />
-        </div>
-        }
-      </div>
-    </>
+          </Button>
+        </Stack>
+      </Box>
+    }
+    </Box>
   );
 };
 

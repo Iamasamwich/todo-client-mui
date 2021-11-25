@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createAccount } from '../actions/user';
 import { changePage } from '../actions/page';
 import { IaddUserBody } from '../interfaces';
+import styles from '../styles/styles';
 
 interface Props {
   createAccount : (body : IaddUserBody) => void;
@@ -76,13 +77,7 @@ const CreateAccount = ({createAccount, changePage} : Props) => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column'
-      }}
-    >
+    <Box sx={styles.main}>
       <Typography
         variant='h2'
         align='center'
@@ -92,12 +87,7 @@ const CreateAccount = ({createAccount, changePage} : Props) => {
       <Box
         component='form'
         onSubmit={handleSubmit}
-        sx={{
-          display: 'flex',
-          flexGrow: 1,
-          flexDirection: 'column',
-          width: '50%',
-        }}
+        sx={styles.form}
       >
         <TextField
           variant='standard'

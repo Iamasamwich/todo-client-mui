@@ -1,9 +1,11 @@
+import { Box, Stack, Button, Typography, TextField } from '@mui/material';
+
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 import { changePage } from '../actions/page';
 import { IupdatePwordBody } from '../interfaces';
 import { updatePassword } from '../actions/user';
-import Logo from './Logo';
+import styles from '../styles/styles';
 
 interface Props {
   changePage: (page : string) => void;
@@ -54,7 +56,8 @@ const UpdatePassword = ({changePage, updatePassword} : Props) => {
     };
   }, [pwordError, newPwordError, confirmNewPwordError])
 
-  const handleSubmit = () => {
+  const handleSubmit = (e : React.SyntheticEvent) => {
+    e.preventDefault();
     if (anyError || pword === newPword) {
       return;
     } else {
@@ -62,80 +65,68 @@ const UpdatePassword = ({changePage, updatePassword} : Props) => {
     };
   };
 
-  const handleEnter = (e : React.KeyboardEvent) => {
-    if (e.code === 'Enter') {
-      handleSubmit();
-    };
-  };
-
-  const ShowButtons = () => {
-    return (
-      <div className='form-buttons'>
-        {
-          anyError ?
-          null
-        :  
-          <button
-            className='green'
-            onClick={() => handleSubmit()}
-          >
-            Update
-          </button>
-        }
-        <button
-          className='red'
-          onClick={() => changePage('home')}
-        >
-          Cancel
-        </button>
-      </div>
-    );
-  };
-
   return (
-    <>
-      <Logo />
-      <div className='minusLogo'>
-        <h1>Update Your Password</h1>
-
-        <div className='form-box'>
-          <label>Old Password:</label>
-          <input
+    <Box sx={styles.main}>
+      <Typography
+        variant='h2'
+        align='center'
+      >
+        Update Your Password
+      </Typography>
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        sx={styles.form}
+      >
+        <TextField
+          variant='standard'
+          label='Old Password'
+          type='password'
+          value={pword}
+          onChange={e => setPword(e.target.value)}
+          error={pwordError}
+        />
+        <TextField 
+          variant='standard'
+          label='New Password'
+          type='password'
+          value={newPword}
+          onChange={e => setNewPword(e.target.value)}
+          error={newPwordError}
+        />
+        {newPwordError ? null :
+          <TextField 
+            variant='standard'
+            label='Confirm New Password'
             type='password'
-            onKeyDown={e => handleEnter(e)}
-            className={pwordError ? 'error' : ''}
-            value={pword}
-            onChange={e => setPword(e.target.value)}
+            value={confirmNewPword}
+            onChange={e => setConfirmNewPword(e.target.value)}
+            error={confirmNewPwordError}
           />
-
-          <label>New Password:</label>
-          <input
-            type='password'
-            onKeyDown={e => handleEnter(e)}
-            className={newPwordError ? 'error' : ''}
-            value={newPword}
-            onChange={e => setNewPword(e.target.value)}
-          />
-
-          {newPwordError ? 
-          null
-          :  
-            <>
-              <label>Confirm New Password:</label>
-              <input
-                type='password'
-                onKeyDown={e => handleEnter(e)}
-                className={confirmNewPwordError ? 'error' : ''}  
-                value={confirmNewPword}
-                onChange={e => setConfirmNewPword(e.target.value)}
-              />
-            </>
+        }
+        <Stack
+          pt={2}
+          spacing={2}
+        >
+          {anyError ? null :
+            <Button
+              variant='contained'
+              color='success'
+              type='submit'
+            >
+              Update
+            </Button>
           }
-          <ShowButtons />
-        </div>
-
-      </div>
-    </>
+          <Button
+            variant='contained'
+            color='warning'
+            onClick={() => changePage('home')}
+          >
+            Cancel
+          </Button>
+        </Stack>
+      </Box>
+    </Box>
   );
 };
 

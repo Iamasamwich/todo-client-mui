@@ -8,6 +8,7 @@ import { addTodo } from '../actions/todo';
 import { changePage } from '../actions/page'
 import { IaddTodoBody } from '../interfaces';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import styles from '../styles/styles';
 
 interface Props {
   addTodo: (body: IaddTodoBody) => Promise<void>;
@@ -54,13 +55,9 @@ const AddTodo = ({addTodo, changePage} : Props) => {
     };
   }, [todoError, dueDateError]);
 
-  const handleTodoChange = (e: any) =>{
+  const handleTodoChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
     const reTodo = e.target.value.replace(/[^a-zA-Z0-9 .,]/, '');
     setTodo(reTodo);
-  };
-
-  const handleDateChange = (date : Date) => {
-    setDueDate(date);
   };
 
   const handleSubmit = (e : React.SyntheticEvent) => {
@@ -74,13 +71,7 @@ const AddTodo = ({addTodo, changePage} : Props) => {
   };
   
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}
-    >
+    <Box sx={styles.main}>
       <Typography
         variant='h2'
         align='center'
@@ -90,12 +81,7 @@ const AddTodo = ({addTodo, changePage} : Props) => {
       <Box
         component='form'
         onSubmit={handleSubmit}
-        sx={{
-          display: 'flex',
-          flexGrow: 1,
-          flexDirection: 'column',
-          width: '50%'
-        }}
+        sx={styles.form}
       >
         <TextField
           sx={{
@@ -113,7 +99,7 @@ const AddTodo = ({addTodo, changePage} : Props) => {
             value={dueDate}
             openTo='day'
             inputFormat="dd/MM/yyyy"
-            onChange={newValue => handleDateChange(newValue as Date)}
+            onChange={newValue => setDueDate(newValue as Date)}
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>

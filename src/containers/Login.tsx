@@ -5,6 +5,7 @@ import { changePage } from '../actions/page';
 
 import { connect } from 'react-redux';
 import { IloginBody } from '../interfaces';
+import styles from '../styles/styles';
 
 interface Props {
   login: (body : IloginBody) => void;
@@ -49,13 +50,7 @@ const Login = ({login, changePage} : Props) => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-      }}
-    > 
+    <Box sx={styles.main}>
       <Typography
         variant='h2'
         align='center'
@@ -65,12 +60,7 @@ const Login = ({login, changePage} : Props) => {
       <Box 
         component='form'
         onSubmit={handleSubmit}
-        sx={{
-          display: 'flex',
-          flexGrow: 1,
-          flexDirection: 'column',
-          width: '50%'
-        }}
+        sx={styles.form}
       >
         <TextField 
           variant='standard' 

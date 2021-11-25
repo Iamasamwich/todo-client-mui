@@ -1,4 +1,4 @@
-import { Box, Typography, Stack, Button } from '@mui/material';
+import { Box, Container, Typography, Stack, Button } from '@mui/material';
 
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -73,9 +73,13 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
           {allOrActive === 'all' ? 'Show Active Todos' : 'Show All Todos'}
         </Button>
       </Stack>
-      <Box>
+      <Container
+        sx={{
+          padding: 2
+        }}
+      >
         {selectedTodos().map(todo => <ShowTodo todo={todo} key={todo.id} />)}
-      </Box>
+      </Container>
     </Box>
   );
 };

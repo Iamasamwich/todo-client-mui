@@ -1,11 +1,14 @@
+import { Box, Stack, Button, Typography, TextField } from '@mui/material';
+
 import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from '@mui/lab/DatePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { connect } from 'react-redux';
 import { updateTodo } from '../actions/todo';
 import { changePage } from '../actions/page'
-import Logo from './Logo';
 import { Itodo } from '../interfaces';
+import styles from '../styles/styles';
 
 interface State {
   todoToUpdate: Itodo;
@@ -25,10 +28,9 @@ const UpdateTodo = ({todoToUpdate, updateTodo, changePage} : Props) => {
   };
 
   const [todo, setTodo] = useState('');
-  const [dueDate, setDueDate] = useState(convertDate(new Date()));
+  const [dueDate, setDueDate] = useState <Date> (new Date());
 
   const [todoError, setTodoError] = useState(false);
-  const [dueDateError, setDueDateError] = useState(false);
 
   const [anyError, setAnyError] = useState(false);
 
@@ -37,7 +39,7 @@ const UpdateTodo = ({todoToUpdate, updateTodo, changePage} : Props) => {
       return;
     } else {
       setTodo(todoToUpdate.todo);
-      setDueDate(todoToUpdate.dueDate);
+      setDueDate(new Date(todoToUpdate.dueDate));
     };
   }, [todoToUpdate]);
 
@@ -50,89 +52,86 @@ const UpdateTodo = ({todoToUpdate, updateTodo, changePage} : Props) => {
   }, [todo]);
 
   useEffect(() => {
-    const re = /^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/;
-    if (!re.test(dueDate)) {
-      setDueDateError(true)
-    } else {
-      setDueDateError(false);
-    };
-  }, [dueDate]);
-
-  useEffect(() => {
-    if (!todoError && !dueDateError) {
+    if (!todoError) {
       setAnyError(false);
     } else {
       setAnyError(true);
     };
-  }, [todoError, dueDateError]);
+  }, [todoError]);
 
   const handleTodoChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
     const reTodo = e.target.value.replace(/[^a-zA-Z0-9 .,]/, '');
     setTodo(reTodo);
   };
-  
-  const handleDueDateChange = (date : Date | null) => {
-    if (date !== null && !isNaN(date.getTime())) {
-      setDueDate(convertDate(date));
-    } else {
-      setDueDate(convertDate(new Date()));
-    };
-  };
 
-  const ShowButtons = () => {
-    return (
-      <div className="form-buttons">
-        {!anyError ?
-          <button 
-            className="green"
-            onClick={() => updateTodo({...todoToUpdate, todo, dueDate})}
-          >
-            Update It!
-          </button>
-          : null  
-        }
-        <button 
-          className="red"
-          onClick={() => changePage('home')}
-        >
-          Cancel
-        </button>
-      </div>
-    );
-  };
-
-  const handleSubmitTodo = () => {
-    if (anyError) {
+  const handleSubmit = (e : React.SyntheticEvent) => {
+    e.preventDefault();
+    console.log(todo, dueDate);
+    if (anyError || !dueDate) {
       return;
     } else {
-      updateTodo({...todoToUpdate, todo, dueDate});
-    };
-  };
+      const date = convertDate(dueDate);
+      console.log(dueDate, date);
+      
+      updateTodo({...todoToUpdate, todo, dueDate: date});
+    }
+  }
 
   return (
-    <>
-      <Logo />
-      <div className="minusLogo">
-        <h1>Update A Todo</h1>
-        <div className="form-box">
-          <label>Todo:</label>
-          <input
-            className={todoError ? 'error' : ''}
-            value={todo}
-            onChange={handleTodoChange}
-            onKeyDown={e => e.code === "Enter" ? handleSubmitTodo() : null}
-          />
-          <label>Due Date:</label>
+    <Box sx={styles.main}>
+      <Typography variant='h2'
+        align='center'
+      >
+        Update A Todo
+      </Typography>
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        sx={styles.form}
+      >
+        <TextField
+          sx={{
+            marginBottom: 2
+          }}
+          variant='standard'
+          label='Enter Todo Text'
+          value={todo}
+          onChange={handleTodoChange}
+          error={todoError}
+        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
-            className='input'
-            dateFormat='dd/MM/yyyy'
-            onChange={handleDueDateChange}
-            selected={new Date(dueDate)}          
+            label='Due Date'
+            value={dueDate}
+            openTo='day'
+            inputFormat='dd/MM/yyyy'
+            onChange={newValue => setDueDate(newValue as Date)}
+            renderInput={params => <TextField {...params} />}
           />
-          <ShowButtons />
-        </div>
-      </div>
-    </>
+        </LocalizationProvider>
+        <Stack
+          pt={2}
+          spacing={2}
+        >
+          {anyError ? null :
+            <Button
+              variant='contained'
+              type='submit'
+              color='success'
+            >
+              Update Todo
+            </Button>
+          }
+          <Button
+            variant='contained'
+            color='warning'
+            onClick={() => changePage('home')}
+          >
+            Cancel
+          </Button>
+        </Stack>
+      </Box>
+    </Box>
   );
 };
 
