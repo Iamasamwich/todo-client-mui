@@ -50,7 +50,10 @@ const NavBar = ({page, login, changePage, logout} : Props) => {
         }}
       >
         {page !== 'home' && 
-          <IconButton size='large'>
+          <IconButton 
+            size='large'
+            onClick={() => changePage('home')}
+          >
             <HomeOutlinedIcon />
           </IconButton>
         }

@@ -23,11 +23,6 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
     const now = Math.floor(new Date(todaysDate).getTime() / (1000 * 3600 * 24));
     const due = Math.floor(new Date(todo.dueDate).getTime() / (1000 * 3600 * 24));
 
-    console.log(new Date(todaysDate).getTime());
-    console.log(new Date(todo.dueDate).getTime());
-    
-    
-    
     const daysTilDue = due - now;
     
     let text : string;

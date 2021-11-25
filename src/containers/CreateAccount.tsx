@@ -1,9 +1,10 @@
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
+
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createAccount } from '../actions/user';
 import { changePage } from '../actions/page';
 import { IaddUserBody } from '../interfaces';
-import Logo from './Logo';
 
 interface Props {
   createAccount : (body : IaddUserBody) => void;
@@ -65,64 +66,92 @@ const CreateAccount = ({createAccount, changePage} : Props) => {
     };
   }, [nameError, emailError, pwordError, confPwordError]);
 
-  const ShowButtons = () => {
-    return (
-      <div className="form-buttons">
-        {!anyError ? 
-          <button
-            className='green'
-            onClick={() => createAccount({name, email, pword})}
-          >
-            Sign Up
-          </button>
-          : null
-        }
-        <button 
-          className='red'
-          onClick={() => changePage('home')}
-        >
-          Cancel
-        </button>
-      </div>
-    );
+  const handleSubmit = (e : React.SyntheticEvent) => {
+    e.preventDefault();
+    if (anyError) {
+      return;
+    } else {
+      createAccount({name, email, pword});
+    };
   };
 
   return (
-    <>
-      <Logo />
-      <div className='minusLogo'>
-        <h1>CREATE ACCOUNT</h1>
-        <div className='form-box'>
-          <label>Name:</label>
-          <input
-            className={nameError ? 'error' : ''}
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
-          <label>Email:</label>
-          <input
-            className={emailError ? 'error' : ''}
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-          <label>Password:</label>
-          <input
-            type='password'
-            className={pwordError ? 'error' : ''}
-            value={pword}
-            onChange={e => setPword(e.target.value)}
-          />
-          <label>Confirm Password:</label>
-          <input
-            type='password'
-            className={confPwordError ? 'error' : ''}
-            value={confPword}
-            onChange={e => setConfPword(e.target.value)}
-          />
-          <ShowButtons />
-        </div>
-      </div>
-    </>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column'
+      }}
+    >
+      <Typography
+        variant='h2'
+        align='center'
+      >
+        Create Account
+      </Typography>
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        sx={{
+          display: 'flex',
+          flexGrow: 1,
+          flexDirection: 'column',
+          width: '50%',
+        }}
+      >
+        <TextField
+          variant='standard'
+          label='Name'
+          value={name}
+          onChange={e => setName(e.target.value)}
+          error={nameError}
+        />
+        <TextField
+          variant='standard'
+          label='Email'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          error={emailError}
+        />
+        <TextField
+          variant='standard'
+          label='Password'
+          value={pword}
+          onChange={e => setPword(e.target.value)}
+          error={pwordError}
+          type='password'
+        />
+        <TextField
+          variant='standard'
+          label='Confirm Password'
+          value={confPword}
+          onChange={e => setConfPword(e.target.value)}
+          error={confPwordError}
+          type='password'
+        />
+        <Stack
+          pt={2}
+          spacing={2}
+        >
+          {!anyError ?
+            <Button
+              variant='contained'
+              type='submit'
+              color='success'
+            >
+              Sign Up!
+            </Button>
+          : null}
+          <Button
+            variant='contained'
+            color='warning'
+            onClick={() => changePage('home')}
+          >
+            Cancel
+          </Button>
+        </Stack>
+      </Box>
+    </Box>
   );
 };
 

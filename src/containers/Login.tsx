@@ -1,4 +1,4 @@
-import { Typography, Box, TextField, ButtonGroup, Button, Stack } from '@mui/material';
+import { Typography, Box, TextField, Button, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { login } from '../actions/login';
 import { changePage } from '../actions/page';
@@ -69,7 +69,7 @@ const Login = ({login, changePage} : Props) => {
           display: 'flex',
           flexGrow: 1,
           flexDirection: 'column',
-          width: '80%'
+          width: '50%'
         }}
       >
         <TextField 
@@ -93,11 +93,9 @@ const Login = ({login, changePage} : Props) => {
         >
           {!anyError ?
             <Button
-            variant='contained'
-            type='submit'
-            color='success'
-            sx={{
-            }}
+              variant='contained'
+              type='submit'
+              color='success'
             >
               Login
             </Button>
