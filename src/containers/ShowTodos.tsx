@@ -1,4 +1,6 @@
 import { Box, Container, Typography, Stack, Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -63,12 +65,15 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
         <Button
           variant='contained'
           onClick={() => changePage('addTodo')}
+          color="success"
+          startIcon={<AddIcon />}
         >
           Add A Todo
         </Button>
         <Button
           variant='contained'
           onClick={() => setAllOrActive(allOrActive === 'active' ? 'all':'active')}
+          startIcon={<ReplayIcon />}
         >
           {allOrActive === 'all' ? 'Show Active Todos' : 'Show All Todos'}
         </Button>
@@ -78,6 +83,25 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
           padding: 2
         }}
       >
+        {selectedTodos().length !== 0 ? null :
+          <Stack direction='column' alignItems='center' p={2} spacing={3}
+          >
+            <Typography variant='h4'>
+              Whoops, it looks like there's nothing here
+            </Typography>
+            <Typography variant='h4'>
+              Click "ADD A TODO" to add a new todo
+            </Typography>
+            {allOrActive === 'all' ? null :
+              <>
+                <Typography align='center' variant='h6'>...or...</Typography>
+                <Typography align='center' variant='h4'>
+                  Click "SHOW ALL TODOS" to show the ones you have marked as done.
+                </Typography>
+              </>
+            }
+          </Stack>
+        }
         {selectedTodos().map(todo => <ShowTodo todo={todo} key={todo.id} />)}
       </Container>
     </Box>

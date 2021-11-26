@@ -85,6 +85,7 @@ const UpdatePassword = ({changePage, updatePassword} : Props) => {
           value={pword}
           onChange={e => setPword(e.target.value)}
           error={pwordError}
+          autoFocus={true}
         />
         <TextField 
           variant='standard'

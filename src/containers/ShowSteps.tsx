@@ -53,7 +53,8 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
                       onClick={() => updateStep({stepId: step.id, todoId: step.todoId, body: {step: step.step, done: !step.done}})}
                     /> 
                     : 
-                    <DoneIcon 
+                    <DoneIcon
+                      color='success' 
                       onClick={() => updateStep({stepId: step.id, todoId: step.todoId, body: {step: step.step, done: !step.done}})}
                     />
                   }
@@ -85,6 +86,7 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
               value={step}
               onChange={handleStepChange}
               sx={{width: '100%'}}
+              autoFocus={true}
             />
           </Grid>
           <Grid item md={2} sx={styles.centered}>

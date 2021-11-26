@@ -117,6 +117,7 @@ const EditUser = ({updateUser, setStatus, changePage} : Props) => {
           value={name}
           onChange={e => setName(e.target.value)}
           error={nameError}
+          autoFocus={true}
         />
         <TextField
           variant='standard'

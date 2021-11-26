@@ -98,6 +98,7 @@ const UpdateTodo = ({todoToUpdate, updateTodo, changePage} : Props) => {
           value={todo}
           onChange={handleTodoChange}
           error={todoError}
+          autoFocus={true}
         />
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker

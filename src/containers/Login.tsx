@@ -68,6 +68,7 @@ const Login = ({login, changePage} : Props) => {
           value={email}
           onChange={e => setEmail(e.target.value)}
           error={emailError}
+          autoFocus={true}
         />
         <TextField
           variant='standard'
