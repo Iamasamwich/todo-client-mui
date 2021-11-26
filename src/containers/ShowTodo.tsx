@@ -1,4 +1,4 @@
-import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Grid, Modal, Stack, Typography, Box, Button } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import ReplayIcon from '@mui/icons-material/Replay';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -67,6 +67,46 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
 
   return (
     <>
+      <Modal
+        open={warning}
+        onClose={() => setWarning(false)}
+      >
+        <Box
+          sx={styles.deleteWarning}
+        >
+          <Typography 
+            align='center' 
+            color='error' 
+            variant='h3'
+            sx={styles.textFlash}
+          >
+            Warning!
+          </Typography>
+          <Typography align='center' color='error' variant='h5'>
+            This will permanantly delete the Todo!
+          </Typography>
+          <Typography align='center' variant='h5'>
+            Consider clicking the green tick to mark it as done instead...
+          </Typography>
+          <Stack direction='row' spacing={2} padding={2} justifyContent='center'>
+            <Button
+              color='error'
+              variant='contained'
+              onClick={() => deleteTodo(todo.id)}
+            >
+              Delete it!
+            </Button>
+            <Button 
+              color='success'
+              variant='contained'
+              onClick={() => setWarning(false)}  
+            >
+              Keep it!
+            </Button>
+          </Stack>
+        </Box>
+      </Modal>
+
       <Grid container>
 
         {/* left icons */}
@@ -107,7 +147,6 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
             container
             direction='column'
           >
-            {/* todo container */}
             <Grid container padding={1}>
               <Grid 
                 item 
@@ -145,7 +184,6 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
                     {ShowDueDate()}
                   </Grid>
                 </Grid>
-
               </Grid>
             </Grid>
             {!showSteps ? null :
@@ -157,18 +195,21 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
         {/* right icons */}
         <Grid item md={1}>
           <Stack direction='column' alignItems='center' spacing={2} padding={2}>
-            <EditOutlinedIcon fontSize='large' />
-            <DeleteForeverOutlinedIcon fontSize='large' color='error' />
+            <EditOutlinedIcon 
+              fontSize='large' 
+              onClick={() => editTodo(todo)}
+            />
+            <DeleteForeverOutlinedIcon 
+              fontSize='large' 
+              color='error' 
+              onClick={() => setWarning(true)}
+            />
           </Stack>
         </Grid>
       </Grid>
       <hr />
     </>
-
-
-
-
-  )
+  );
 };
 
 const mapDispatchToProps = {
@@ -178,71 +219,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(null, mapDispatchToProps)(ShowTodo);
-
-// div className="todo-box">
-//       {warning ? 
-//         <div className='delete-todo-warning'>
-//           <div className='warning-box'>
-
-//             <p>You are about to delete a todo!</p>
-//             <p>This action is not reversable!</p>
-//             <p>To mark as done click the green tick to the left of the todo.</p>
-//             <div className='form-buttons'>
-
-//               <button
-//                 className='green'
-//                 onClick={() => deleteTodo(todo.id)}
-//                 >DELETE IT!</button>
-//               <button
-//                 className='red'
-//                 onClick={() => setWarning(false)}
-//                 >Cancel</button>
-//             </div>
-
-//             </div>
-//           </div>
-//       : null}
-//       <div className="todo-box-todo">
-
-//         <div className='todo-box-icons icons'>
-//           <div 
-//             className='todo-box-icon'
-//             onClick={() => updateTodo({...todo, done: todo.done ? false : true})}
-//           >
-//             {todo.done ? '\u274c' : '\u2705'}
-//           </div>
-//           <div 
-//             className='todo-box-icon'
-//             onClick={() => setShowSteps(!showSteps)}
-//           >
-//             {showSteps ? '\u2500' : '\u2630'}
-//           </div>
-//         </div>
-//         <div className="todo-box-text">
-//           <div className='todo-box-top'>
-//             <h2>{todo.todo}</h2>
-//           </div>
-//           <div className='todo-box-bottom'>
-//             <ShowDueDate />
-//             <ShowStepsCount />
-//           </div>
-//         </div>
-//         <div className="todo-box-icons icons">
-//           <div 
-//             className='todo-box-icon'
-//             onClick={() => setWarning(true)}
-//           >
-//             {'\u2421'}
-//           </div>
-//           <div
-//             className='todo-box-icon'
-//             onClick={() => editTodo(todo)}
-//           >
-//             {'\u270F'}
-//           </div>
-//         </div>
-//       </div>
-//       {showSteps ? 
-//         <ShowSteps steps={todo.steps} todoId={todo.id} />
-//         : null}
-//     </div> */

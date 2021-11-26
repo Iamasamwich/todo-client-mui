@@ -5,6 +5,8 @@ interface Styles {
   form: SxProps;
   centered: SxProps;
   todoIcon: SxProps;
+  deleteWarning: SxProps;
+  textFlash: SxProps;
 };
 
 const styles = {
@@ -28,6 +30,25 @@ const styles = {
     fontSize: 35,
     p: 1
   },
+  deleteWarning: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '500px',
+    bgcolor: 'background.paper',
+    boxShadow: 20,
+    p: 4
+  },
+  textFlash: {
+    opacity: '1',
+    animation: 'flash 1s infinite',
+    '@keyframes flash': {
+      '0%': {opacity: 1},
+      '50%': {opacity: 0},
+      '100%': {opacity: 1}
+    }
+  }
 } as Styles;
 
 export default styles;
