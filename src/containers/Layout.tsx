@@ -36,7 +36,7 @@ const Layout = ({children, login, page, logout, changePage} : Props) => {
       <Typography 
         variant='h1'
         align='center'
-        pb={3}
+        sx={styles.padding}
       >
         Things To Do
       </Typography>

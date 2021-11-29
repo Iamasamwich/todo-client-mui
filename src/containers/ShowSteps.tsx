@@ -77,19 +77,20 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
       }
         <Grid container component='form'
           onSubmit={handleSubmit}
+          sx={{alignItems: 'end'}}
         >
-          <Grid item xs={2} />
-          <Grid item xs={6}>
+          <Grid item xs={0} md={2} />
+          <Grid item xs={9} md={6} >
             <TextField 
               variant='standard' 
               label='Enter new step...' 
               value={step}
               onChange={handleStepChange}
-              sx={{width: '100%'}}
+              sx={{width: '100%', marginLeft: '10px'}}
               autoFocus={true}
             />
           </Grid>
-          <Grid item xs={2} sx={styles.centered}>
+          <Grid item xs={3} md={2} sx={styles.centered}>
             <Button 
               variant='contained' 
               color='success'

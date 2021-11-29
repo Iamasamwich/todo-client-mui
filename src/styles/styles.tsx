@@ -10,10 +10,13 @@ interface Styles {
   popup: SxProps;
   textFlash: SxProps;
   spinner: SxProps;
+  padding: SxProps;
 };
 
 const styles = {
-  root: {},
+  root: {
+    minWidth: '360px'
+  },
   main: {
     display: 'flex',
     alignItems: 'center',
@@ -23,7 +26,7 @@ const styles = {
     '@media (max-width: 900px)': {
       height: '120px'
     },
-    '@media (max-width: 768px)': {
+    '@media (max-width: 767px)': {
       height: '100px'
     },
     '@media (max-width: 500px)': {
@@ -34,7 +37,10 @@ const styles = {
     display: 'flex',
     flexGrow: 1,
     flexDirection: 'column',
-    width: '50%'
+    width: '50%',
+    '@media (max-width: 767px)': {
+      width: '90%'
+    }
   },
   centered: {
     display: 'flex',
@@ -71,6 +77,15 @@ const styles = {
     animation: 'spin 1s linear infinite',
     '@keyframes spin': {
       '100%': {transform: 'rotate(89deg)'}
+    }
+  },
+  padding: {
+    paddingBottom: '24px',
+    '@media (max-width: 767px)': {
+      paddingBottom: '16px'
+    },
+    '@media (max-width: 500px)': {
+      paddingBottom: '8px'
     }
   }
 } as Styles;

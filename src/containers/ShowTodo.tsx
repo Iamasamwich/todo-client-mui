@@ -156,7 +156,6 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
                   alignItems: 'center', 
                   paddingLeft: 1,
                   overflow: 'hidden',
-                  backgroundColor: 'orange'
                 }}>
                 <Typography variant='h4'>
                   {todo.todo}
