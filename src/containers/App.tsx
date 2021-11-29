@@ -13,6 +13,9 @@ import EditTodo from './EditTodo';
 import EditUser from './EditUser';
 import UpdatePassword from './UpdatePassword';
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import todoTheme from '../styles/theme';
+
 interface State {
   login: boolean;
   page: string;
@@ -21,6 +24,8 @@ interface State {
 interface Props extends State {
   ping: () => void;
 };
+
+let theme = createTheme(todoTheme);
 
 const App = ({login, page, ping} : Props) => {
 
@@ -55,10 +60,12 @@ const App = ({login, page, ping} : Props) => {
   };
 
   return (
+    <ThemeProvider theme={theme}>
       <Layout>
         <Status />
         <ShowPage />
       </Layout>
+    </ThemeProvider>
   );
 };
 

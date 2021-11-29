@@ -9,6 +9,8 @@ import NavBar from './NavBar';
 
 import Icon from '../assets/icon.png';
 
+import styles from '../styles/styles';
+
 interface State {
   login: boolean;
   page: string;
@@ -23,16 +25,13 @@ interface Props extends State {
 const Layout = ({children, login, page, logout, changePage} : Props) => {
 
   return (
-    <Container>
+    <Container sx={styles.root}>
       <NavBar />
       <Toolbar />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center'
-        }}
-      >
-        <img src={Icon} alt="icon" />
+      <Box sx={styles.main}>
+        <Box sx={styles.icon}>
+          <img style={{objectFit: 'contain', height: '100%', width: '100%'}} src={Icon} alt="icon" />
+        </Box>
       </Box>
       <Typography 
         variant='h1'

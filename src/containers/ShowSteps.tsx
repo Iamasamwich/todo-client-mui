@@ -44,10 +44,10 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
       {
         steps.map(step => (
           <Grid container>
-            <Grid item md={1} />
-            <Grid item md={10} sx={{borderTop: 1}}>
+            <Grid item xs={0} md={1} />
+            <Grid item xs={12} md={10} sx={{borderTop: 1}}>
               <Grid container>
-                <Grid item md={1} sx={styles.centered}>
+                <Grid item xs={1} sx={styles.centered}>
                   {step.done ? 
                     <ReplayIcon 
                       onClick={() => updateStep({stepId: step.id, todoId: step.todoId, body: {step: step.step, done: !step.done}})}
@@ -59,12 +59,12 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
                     />
                   }
                 </Grid>
-                <Grid item md={10}>
+                <Grid item xs={10} sx={{overflow: 'hidden'}}>
                   <Typography variant='body1' fontSize='1.3em' marginLeft={6}>
                     {step.step}
                   </Typography>
                 </Grid>
-                <Grid item md={1} sx={styles.centered}>
+                <Grid item xs={1} sx={styles.centered}>
                   <DeleteForeverOutlinedIcon 
                     color='warning'
                     onClick={() => deleteStep(step.id, step.todoId)}
@@ -78,8 +78,8 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
         <Grid container component='form'
           onSubmit={handleSubmit}
         >
-          <Grid item md={2} />
-          <Grid item md={6}>
+          <Grid item xs={2} />
+          <Grid item xs={6}>
             <TextField 
               variant='standard' 
               label='Enter new step...' 
@@ -89,7 +89,7 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
               autoFocus={true}
             />
           </Grid>
-          <Grid item md={2} sx={styles.centered}>
+          <Grid item xs={2} sx={styles.centered}>
             <Button 
               variant='contained' 
               color='success'

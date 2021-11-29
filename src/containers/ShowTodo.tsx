@@ -110,7 +110,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
       <Grid container>
 
         {/* left icons */}
-        <Grid item md={1}> 
+        <Grid item xs={1}> 
           <Stack direction='column' alignItems='center' spacing={2} padding={2}>
             {todo.done ?
               <ReplayIcon 
@@ -141,7 +141,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
         {/* center column */}
         <Grid 
           item
-          md={10}
+          xs={10}
         >
           <Grid 
             container
@@ -150,25 +150,28 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
             <Grid container padding={1}>
               <Grid 
                 item 
-                md={8} 
+                xs={8} 
                 sx={{
                   display: 'flex', 
                   alignItems: 'center', 
-                  paddingLeft: 1
+                  paddingLeft: 1,
+                  overflow: 'hidden',
+                  backgroundColor: 'orange'
                 }}>
                 <Typography variant='h4'>
                   {todo.todo}
                 </Typography>
               </Grid>
-              <Grid item md={4}>
+              <Grid item xs={4}>
                 <Grid container direction='column'>
                   <Grid 
                     item
                     sx={{
                       display: 'flex', 
                       alignItems: 'center', 
-                      justifyContent: 'flex-end', 
+                      justifyContent:'flex-end',
                       paddingRight: 1, 
+                      textAlign: 'right'
                     }}>
                     {ShowStepsCount()}
                   </Grid>
@@ -178,7 +181,8 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
                       display: 'flex',
                       alignItems: 'center', 
                       justifyContent: 'flex-end',
-                      paddingRight: 1
+                      paddingRight: 1,
+                      textAlign: 'right'
                     }}
                   >
                     {ShowDueDate()}
@@ -193,7 +197,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
         </Grid>
 
         {/* right icons */}
-        <Grid item md={1}>
+        <Grid item xs={1}>
           <Stack direction='column' alignItems='center' spacing={2} padding={2}>
             <EditOutlinedIcon 
               fontSize='large' 

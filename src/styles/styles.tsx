@@ -1,7 +1,9 @@
 import { SxProps } from "@mui/system";
 
 interface Styles {
+  root: SxProps;
   main: SxProps;
+  icon: SxProps;
   form: SxProps;
   centered: SxProps;
   todoIcon: SxProps;
@@ -11,10 +13,22 @@ interface Styles {
 };
 
 const styles = {
+  root: {},
   main: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column'
+  },
+  icon: {
+    '@media (max-width: 900px)': {
+      height: '120px'
+    },
+    '@media (max-width: 768px)': {
+      height: '100px'
+    },
+    '@media (max-width: 500px)': {
+      height: '80px'
+    }
   },
   form: {
     display: 'flex',

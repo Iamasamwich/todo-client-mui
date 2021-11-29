@@ -55,7 +55,7 @@ const Status = ({appStatus} : State) => {
         return <Stack alignItems='center' spacing={2}>
           <Typography variant='h4'>Warning!</Typography>
           <Typography variant='h5'>{showError()}</Typography>
-          <Typography sx={styles.textFlash} color='blue' variant='h6'>Click anywhere to dismiss</Typography>
+          <Typography sx={styles.textFlash} color='blue' variant='h6'>Click to dismiss</Typography>
         </Stack>
     };
   };
