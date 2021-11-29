@@ -60,7 +60,7 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
                   }
                 </Grid>
                 <Grid item xs={10} sx={{overflow: 'hidden'}}>
-                  <Typography variant='body1' fontSize='1.3em' marginLeft={6}>
+                  <Typography variant='body1' marginLeft={6}>
                     {step.step}
                   </Typography>
                 </Grid>
