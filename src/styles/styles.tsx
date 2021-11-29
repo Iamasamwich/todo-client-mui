@@ -5,8 +5,9 @@ interface Styles {
   form: SxProps;
   centered: SxProps;
   todoIcon: SxProps;
-  deleteWarning: SxProps;
+  popup: SxProps;
   textFlash: SxProps;
+  spinner: SxProps;
 };
 
 const styles = {
@@ -30,7 +31,7 @@ const styles = {
     fontSize: 35,
     p: 1
   },
-  deleteWarning: {
+  popup: {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -47,6 +48,15 @@ const styles = {
       '0%': {opacity: 1},
       '50%': {opacity: 0},
       '100%': {opacity: 1}
+    }
+  },
+  spinner: {
+    height: '50px',
+    width: '50px',
+    backgroundColor: 'black',
+    animation: 'spin 1s linear infinite',
+    '@keyframes spin': {
+      '100%': {transform: 'rotate(89deg)'}
     }
   }
 } as Styles;

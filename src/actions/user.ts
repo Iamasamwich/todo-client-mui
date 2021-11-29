@@ -21,14 +21,9 @@ export const createAccount = (body : IaddUserBody) => async (dispatch : Dispatch
 
 export const logout = () => (dispatch : Dispatch) => {
   dispatch({type: 'STATUS', payload: 'loading'});
-
   api('/login', 'PUT')
   .then(resp => {
     if (resp.status === 200) {
-
-      
-      console.log(document.cookie);
-
       dispatch({type: 'LOGIN', payload: false});
       dispatch({type: 'SET_TODOS', payload: []});
       dispatch({type: 'TODOS_FETCHED', payload: false});

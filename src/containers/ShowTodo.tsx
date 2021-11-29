@@ -72,7 +72,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
         onClose={() => setWarning(false)}
       >
         <Box
-          sx={styles.deleteWarning}
+          sx={styles.popup}
         >
           <Typography 
             align='center' 

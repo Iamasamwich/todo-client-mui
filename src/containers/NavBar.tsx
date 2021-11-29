@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { logout } from '../actions/user';
 import { changePage } from '../actions/page';
 
-import {AppBar, Toolbar, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import {AppBar, Toolbar, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -42,6 +42,7 @@ const NavBar = ({page, login, changePage, logout} : Props) => {
   return (
     <AppBar
       ref={ref}
+      position='fixed'
     >
       <Toolbar
         sx={{
@@ -49,9 +50,18 @@ const NavBar = ({page, login, changePage, logout} : Props) => {
           justifyContent: 'flex-end'
         }}
       >
+        {login && 
+          <Typography
+            variant='h6' sx={{flexGrow: 1}}
+          >
+            Welcome back!
+          </Typography>
+
+        }
         {page !== 'home' && 
           <IconButton 
             size='large'
+            color='inherit'
             onClick={() => changePage('home')}
           >
             <HomeOutlinedIcon />
@@ -60,8 +70,9 @@ const NavBar = ({page, login, changePage, logout} : Props) => {
         {login &&
           <IconButton 
             size='large'
+            color='inherit'
             onClick={() => setShowMenu(!showMenu)}
-          >
+            >
             <MenuIcon />
           </IconButton>
         }
