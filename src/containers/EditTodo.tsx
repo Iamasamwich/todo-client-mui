@@ -66,13 +66,10 @@ const UpdateTodo = ({todoToUpdate, updateTodo, changePage} : Props) => {
 
   const handleSubmit = (e : React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(todo, dueDate);
     if (anyError || !dueDate) {
       return;
     } else {
       const date = convertDate(dueDate);
-      console.log(dueDate, date);
-      
       updateTodo({...todoToUpdate, todo, dueDate: date});
     }
   }

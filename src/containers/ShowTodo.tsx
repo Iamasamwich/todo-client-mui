@@ -25,8 +25,6 @@ interface Props {
 };
 
 const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) => {
-  console.log('todo', todo)
-
   const [showSteps, setShowSteps] = useState(false)
   const [warning, setWarning] = useState(false);
 
