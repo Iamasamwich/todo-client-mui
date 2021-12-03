@@ -62,7 +62,13 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
                 <Grid item xs={10} sx={{overflow: 'hidden'}}>
                   <Typography 
                     variant='body1' 
-                    marginLeft={6} 
+                    marginLeft={6}
+                    sx={{
+                      marginLeft: '40px',
+                      '@media (max-width: 767px)': {
+                        marginLeft: '16px'
+                      }
+                    }}
                   >
                     {step.step}
                   </Typography>

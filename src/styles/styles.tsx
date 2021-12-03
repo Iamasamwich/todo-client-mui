@@ -15,7 +15,7 @@ interface Styles {
 
 const styles = {
   root: {
-    minWidth: '360px'
+    minWidth: '350px'
   },
   main: {
     display: 'flex',

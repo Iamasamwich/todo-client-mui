@@ -50,14 +50,15 @@ const NavBar = ({page, login, changePage, logout} : Props) => {
           justifyContent: 'flex-end'
         }}
       >
-        {login && 
-          <Typography
-            variant='h6' sx={{flexGrow: 1}}
-          >
-            Welcome back!
-          </Typography>
-
-        }
+        <Typography
+          variant='h6' sx={{flexGrow: 1}}
+        >
+          {login ? 
+            'Welcome back!'
+            : 
+            'Log in or create an account'
+          }
+        </Typography>
         {page !== 'home' && 
           <IconButton 
             size='large'
