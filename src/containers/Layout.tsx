@@ -1,10 +1,14 @@
+import Container from '@mui/material/Container';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
 import React from 'react';
 
 import { connect } from 'react-redux';
 import { changePage } from '../actions/page';
 import { logout } from '../actions/user';
 
-import { Container, Toolbar, Typography, Box } from '@mui/material';
 import NavBar from './NavBar';
 
 import Icon from '../assets/icon.png';

@@ -1,4 +1,7 @@
-import { Modal, Box, Typography, Stack } from '@mui/material';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";

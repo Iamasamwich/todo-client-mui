@@ -1,4 +1,10 @@
-import { Grid, Modal, Stack, Typography, Box, Button } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Modal from '@mui/material/Modal';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
 import DoneIcon from '@mui/icons-material/Done';
 import ReplayIcon from '@mui/icons-material/Replay';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -6,7 +12,6 @@ import MinimizeIcon from '@mui/icons-material/Minimize';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
-
 
 import React, { useState } from 'react';
 import { connect } from 'react-redux';

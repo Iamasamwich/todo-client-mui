@@ -1,4 +1,9 @@
-import { Typography, Box, TextField, Button, Stack } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
 import React, { useEffect, useState } from 'react';
 import { login } from '../actions/login';
 import { changePage } from '../actions/page';
