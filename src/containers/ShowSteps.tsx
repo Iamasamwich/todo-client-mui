@@ -43,7 +43,7 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
     <Grid container direction='column'>
       {
         steps.map(step => (
-          <Grid container>
+          <Grid container key={step.id}>
             <Grid item xs={0} md={1} />
             <Grid item xs={12} md={10} sx={{borderTop: 1}}>
               <Grid container>
@@ -60,7 +60,10 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
                   }
                 </Grid>
                 <Grid item xs={10} sx={{overflow: 'hidden'}}>
-                  <Typography variant='body1' marginLeft={6}>
+                  <Typography 
+                    variant='body1' 
+                    marginLeft={6} 
+                  >
                     {step.step}
                   </Typography>
                 </Grid>
@@ -86,7 +89,10 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
               label='Enter new step...' 
               value={step}
               onChange={handleStepChange}
-              sx={{width: '100%', marginLeft: '10px'}}
+              sx={{
+                marginRight: '10px',
+                width: '100%'
+              }}
               autoFocus={true}
             />
           </Grid>
@@ -95,7 +101,6 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
               variant='contained' 
               color='success'
               type='submit'
-              sx={{flexGrow: 1}}
             >
               Add Step
             </Button>

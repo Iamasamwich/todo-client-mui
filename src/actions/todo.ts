@@ -99,3 +99,20 @@ export const editTodo = (todoToEdit : Itodo) => async (dispatch : Dispatch) => {
   dispatch({type: "CHANGE_PAGE", payload: 'editTodo'});
   return;
 };
+
+export const resetTodo = (todoId : string) => async (dispatch : Dispatch) => {
+  dispatch({type: 'STATUS', payload: 'loading'});
+
+  await api(`/todo/${todoId}/reset`, 'PUT')
+  .then(resp => {
+    if (resp.status === 202) {
+      dispatch({type: 'STATUS', payload: null});
+      dispatch({type: 'UPDATE_TODO', payload: resp.todo});
+      return;
+    } else {
+      return dispatch({type: 'STATUS', payload: resp.status});
+    };
+  });
+  return;
+
+};

@@ -5,11 +5,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MinimizeIcon from '@mui/icons-material/Minimize';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 
 
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { updateTodo, deleteTodo, editTodo } from '../actions/todo';
+import { updateTodo, deleteTodo, editTodo, resetTodo } from '../actions/todo';
 import { Itodo } from '../interfaces';
 import ShowSteps from './ShowSteps';
 
@@ -20,9 +21,11 @@ interface Props {
   updateTodo: (todo: Itodo) => void;
   deleteTodo: (todoId: number) => void;
   editTodo: (todoToEdit: Itodo) => void;
+  resetTodo: (todoId : string) => void;
 };
 
-const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
+const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) => {
+  console.log('todo', todo)
 
   const [showSteps, setShowSteps] = useState(false)
   const [warning, setWarning] = useState(false);
@@ -30,11 +33,10 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
   const ShowDueDate = () => {
     const d = new Date();
     const todaysDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
-    const now = Math.floor(new Date(todaysDate).getTime() / (1000 * 3600 * 24));
-    const due = Math.floor(new Date(todo.dueDate).getTime() / (1000 * 3600 * 24));
-
+    const now = Math.floor(new Date(`${todaysDate} 00:00`).getTime() / (1000 * 3600 * 24));
+    const due = Math.floor(new Date(`${todo.dueDate} 00:00`).getTime() / (1000 * 3600 * 24));
     const daysTilDue = due - now;
-    
+
     let text : string;
     if (daysTilDue < 0) {
       text = `${Math.abs(daysTilDue)} days overdue!`
@@ -202,6 +204,9 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo} : Props) => {
               fontSize='large' 
               onClick={() => editTodo(todo)}
             />
+            <RotateLeftIcon 
+              onClick={() => resetTodo(String(todo.id))}
+            />
             <DeleteForeverOutlinedIcon 
               fontSize='large' 
               color='error' 
@@ -219,6 +224,7 @@ const mapDispatchToProps = {
   updateTodo,
   deleteTodo,
   editTodo,
+  resetTodo
 };
 
 export default connect(null, mapDispatchToProps)(ShowTodo);

@@ -49,6 +49,17 @@ const todoTheme = {
         fontSize: '0.8rem'
       }
     },
+    body1: {
+      '@media (max-width: 900px)': {
+
+      },
+      '@media (max-width: 767px)': {
+        fontSize: '0.7rem',
+      },
+      '@media (max-width: 500px)': {
+
+      }
+    },
     button: {
       '@media (max-width: 767px)': {
         fontSize: '0.6rem'
