@@ -65,9 +65,15 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
         container
         spacing={1}
         padding={1}
-        direction='column'
+        justifyContent='center'
       >
-        <Grid item>
+        <Grid 
+          item 
+          xs={12}
+          sm={6}  
+          md={4}
+          lg={3}
+        >
           <Button
             fullWidth
             variant='contained'
@@ -77,9 +83,14 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
           >
             Add A Todo
           </Button>
-
         </Grid>
-        <Grid item>
+        <Grid 
+          item 
+          xs={12}
+          sm={6}
+          md={4}
+          lg={3}
+        >
           <Button
             fullWidth
             variant='contained'
@@ -90,41 +101,43 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
           </Button>
         </Grid>
       </Grid>
-      <Grid container direction='column'>
-        {selectedTodos().length !== 0 ? null :
-          <Grid
-            container
-            direction='column'
-            alignItems='center'
-            p={1}
-            spacing={2}
-            sx={{backgroundColor: 'lightblue'}}
-          >
-            <Grid item>
-              <Typography variant='h4'>
-                Whoops, it looks like there's nothing here
-              </Typography>
+      <Grid container direction='row'>
+        <Grid item xs={0} md={1}></Grid>
+        <Grid item xs={12} md={10}>
+          {selectedTodos().length !== 0 ? null :
+            <Grid
+              container
+              direction='column'
+              alignItems='center'
+              p={1}
+              spacing={2}
+            >
+              <Grid item>
+                <Typography variant='h4'>
+                  Whoops, it looks like there's nothing here
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant='h4'>
+                  Click "ADD A TODO" to add a new todo
+                </Typography>
+              </Grid>
+              {allOrActive === 'all' ? null :
+                <>
+                  <Grid item>
+                    <Typography align='center' variant='h6'>...or...</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography align='center' variant='h4'>
+                      Click "SHOW ALL TODOS" to show the ones you have marked as done.
+                    </Typography>
+                  </Grid>
+                </>
+              }
             </Grid>
-            <Grid item>
-              <Typography variant='h4'>
-                Click "ADD A TODO" to add a new todo
-              </Typography>
-            </Grid>
-            {allOrActive === 'all' ? null :
-              <>
-                <Grid item>
-                  <Typography align='center' variant='h6'>...or...</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography align='center' variant='h4'>
-                    Click "SHOW ALL TODOS" to show the ones you have marked as done.
-                  </Typography>
-                </Grid>
-              </>
-            }
-          </Grid>
-        }
-        {selectedTodos().map(todo => <ShowTodo todo={todo} key={todo.id} />)}
+          }
+          {selectedTodos().map(todo => <ShowTodo todo={todo} key={todo.id} />)}
+        </Grid>
       </Grid>
     </Grid>
   );

@@ -83,7 +83,11 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
           onSubmit={handleSubmit}
           spacing={1}
         >
-          <Grid item xs={12}>
+          <Grid 
+            item 
+            xs={12}
+            sm={8}
+          >
             <TextField 
               variant='standard' 
               label='Enter new step...' 
@@ -96,7 +100,11 @@ const ShowSteps = ({steps, todoId, addStep, updateStep, deleteStep} : Props) => 
               autoFocus={true}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid 
+            item 
+            xs={12}
+            sm={4}
+          >
             <Button 
               fullWidth
               variant='contained' 
