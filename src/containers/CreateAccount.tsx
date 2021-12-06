@@ -1,15 +1,13 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createAccount } from '../actions/user';
 import { changePage } from '../actions/page';
 import { IaddUserBody } from '../interfaces';
-import styles from '../styles/styles';
 
 interface Props {
   createAccount : (body : IaddUserBody) => void;
@@ -81,17 +79,22 @@ const CreateAccount = ({createAccount, changePage} : Props) => {
   };
 
   return (
-    <Box sx={styles.main}>
-      <Typography
-        variant='h2'
-        align='center'
-      >
-        Create Account
-      </Typography>
-      <Box
+    <Grid container alignItems='center' direction='column'>
+      <Grid item xs={12}>
+        <Typography
+          variant='h2'
+          align='center'
+        >
+          Create Account
+        </Typography>
+      </Grid>
+      <Grid 
+        container
+        spacing={1}
+        padding={1}
+        direction='column'
         component='form'
         onSubmit={handleSubmit}
-        sx={styles.form}
       >
         <TextField
           variant='standard'
@@ -124,29 +127,37 @@ const CreateAccount = ({createAccount, changePage} : Props) => {
           error={confPwordError}
           type='password'
         />
-        <Stack
+        <Grid
+          container
+          direction='column'
           pt={2}
           spacing={2}
         >
           {!anyError ?
-            <Button
-              variant='contained'
-              type='submit'
-              color='success'
-            >
-              Sign Up!
-            </Button>
+            <Grid item>
+              <Button
+                fullWidth
+                variant='contained'
+                type='submit'
+                color='success'
+              >
+                Sign Up!
+              </Button>
+            </Grid>
           : null}
-          <Button
-            variant='contained'
-            color='warning'
-            onClick={() => changePage('home')}
-          >
-            Cancel
-          </Button>
-        </Stack>
-      </Box>
-    </Box>
+          <Grid item>
+            <Button
+              fullWidth
+              variant='contained'
+              color='warning'
+              onClick={() => changePage('home')}
+              >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

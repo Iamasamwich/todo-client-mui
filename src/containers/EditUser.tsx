@@ -1,8 +1,7 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
 
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -11,7 +10,6 @@ import { updateUser } from '../actions/user';
 import { changePage } from '../actions/page';
 import api from '../api/api';
 import { IupdateUserBody } from '../interfaces';
-import styles from '../styles/styles';
 
 interface Props {
   updateUser: (user : IupdateUserBody) => void;
@@ -100,20 +98,29 @@ const EditUser = ({updateUser, setStatus, changePage} : Props) => {
   };
 
   return (
-    <Box sx={styles.main}>
-      <Typography
-        variant='h2'
-        align='center'
-      >
-        Update Your Details
-      </Typography>
+    <Grid
+      container
+      direction='column'
+      alignItems='center'
+    >
+      <Grid item xs={12}>
+        <Typography
+          variant='h2'
+          align='center'
+        >
+          Update Your Details
+        </Typography>
+      </Grid>
       {loading ? 
           <div className='spinner' />
       :
-      <Box
+      <Grid
+        container
         component='form'
+        direction='column'
+        spacing={1}
+        padding={1}
         onSubmit={handleSubmit}
-        sx={styles.form}
       >
         <TextField
           variant='standard'
@@ -138,36 +145,48 @@ const EditUser = ({updateUser, setStatus, changePage} : Props) => {
           onChange={e => setPword(e.target.value)}
           error={pwordError}
         />
-        <Stack
+        <Grid 
+          container 
+          direction='column'
           pt={2}
           spacing={2}
         >
           {!anyError ?
-            <Button
-              variant='contained'
-              color='success'
-              type='submit'
-            >
-              Update Details
-            </Button>
+            <Grid item>
+              <Button
+                fullWidth
+                variant='contained'
+                color='success'
+                type='submit'
+              >
+                Update Details
+              </Button>
+
+            </Grid>
           : null}
-          <Button
-            variant='contained'
-            onClick={() => changePage('updatePassword')}
-          >
-            Update Password
-          </Button>
-          <Button
-            variant='contained'
-            color='warning'
-            onClick={() => changePage('home')}
-          >
-            Cancel
-          </Button>
-        </Stack>
-      </Box>
+          <Grid item>
+            <Button
+              fullWidth
+              variant='contained'
+              onClick={() => changePage('updatePassword')}
+            >
+              Update Password
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              fullWidth
+              variant='contained'
+              color='warning'
+              onClick={() => changePage('home')}
+            >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
     }
-    </Box>
+    </Grid>
   );
 };
 

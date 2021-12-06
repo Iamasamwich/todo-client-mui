@@ -1,8 +1,7 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
 
 import React, { useEffect, useState } from 'react';
 import DatePicker from '@mui/lab/DatePicker';
@@ -12,7 +11,6 @@ import { connect } from 'react-redux';
 import { updateTodo } from '../actions/todo';
 import { changePage } from '../actions/page'
 import { Itodo } from '../interfaces';
-import styles from '../styles/styles';
 
 interface State {
   todoToUpdate: Itodo;
@@ -75,20 +73,29 @@ const UpdateTodo = ({todoToUpdate, updateTodo, changePage} : Props) => {
     } else {
       const date = convertDate(dueDate);
       updateTodo({...todoToUpdate, todo, dueDate: date});
-    }
-  }
+    };
+  };
 
   return (
-    <Box sx={styles.main}>
-      <Typography variant='h2'
-        align='center'
-      >
-        Update A Todo
-      </Typography>
-      <Box
+    <Grid 
+      container 
+      direction='column' 
+      alignItems='center'
+    >
+      <Grid item xs={12}>
+        <Typography variant='h2'
+          align='center'
+        >
+          Update A Todo
+        </Typography>
+      </Grid>
+      <Grid
+        container
         component='form'
+        direction='column'
+        spacing={1}
+        padding={1}
         onSubmit={handleSubmit}
-        sx={styles.form}
       >
         <TextField
           sx={{
@@ -111,29 +118,38 @@ const UpdateTodo = ({todoToUpdate, updateTodo, changePage} : Props) => {
             renderInput={params => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <Stack
+        <Grid
+          container
+          direction='column'
           pt={2}
           spacing={2}
         >
           {anyError ? null :
-            <Button
-              variant='contained'
-              type='submit'
-              color='success'
-            >
-              Update Todo
-            </Button>
+            <Grid item>
+              <Button
+                fullWidth
+                variant='contained'
+                type='submit'
+                color='success'
+              >
+                Update Todo
+              </Button>
+            </Grid>
           }
-          <Button
-            variant='contained'
-            color='warning'
-            onClick={() => changePage('home')}
-          >
-            Cancel
-          </Button>
-        </Stack>
-      </Box>
-    </Box>
+          <Grid item>
+            <Button
+              fullWidth
+              variant='contained'
+              color='warning'
+              onClick={() => changePage('home')}
+            >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+
   );
 };
 

@@ -1,8 +1,7 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -13,7 +12,6 @@ import { addTodo } from '../actions/todo';
 import { changePage } from '../actions/page'
 import { IaddTodoBody } from '../interfaces';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import styles from '../styles/styles';
 
 interface Props {
   addTodo: (body: IaddTodoBody) => Promise<void>;
@@ -76,17 +74,25 @@ const AddTodo = ({addTodo, changePage} : Props) => {
   };
   
   return (
-    <Box sx={styles.main}>
-      <Typography
-        variant='h2'
-        align='center'
-      >
-        Add A Todo
-      </Typography>
-      <Box
+    <Grid 
+      container
+      direction='column'
+    >
+      <Grid item xs={12}>
+        <Typography
+          variant='h2'
+          align='center'
+        >
+          Add A Todo
+        </Typography>
+      </Grid>
+      <Grid
+        container
         component='form'
+        direction='column'
+        spacing={1}
+        padding={1}
         onSubmit={handleSubmit}
-        sx={styles.form}
       >
         <TextField
           sx={{
@@ -109,29 +115,37 @@ const AddTodo = ({addTodo, changePage} : Props) => {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <Stack
+        <Grid 
+          container
+          direction='column'
           pt={2}
           spacing={2}
         >
           {!anyError ?
-            <Button
-              variant='contained'
-              type='submit'
-              color='success'
-            >
-              Add Todo
-            </Button>
+            <Grid item>
+              <Button
+                fullWidth
+                variant='contained'
+                type='submit'
+                color='success'
+              >
+                Add Todo
+              </Button>
+            </Grid>
           : null }
-          <Button
-            variant='contained'
-            color='warning'
-            onClick={() => changePage('home')}
-          >
-            Cancel
-          </Button>
-        </Stack>
-      </Box>
-    </Box>
+          <Grid item>
+            <Button
+              fullWidth
+              variant='contained'
+              color='warning'
+              onClick={() => changePage('home')}
+            >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

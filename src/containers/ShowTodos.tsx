@@ -1,8 +1,6 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
 import AddIcon from '@mui/icons-material/Add';
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -50,66 +48,85 @@ const ShowTodos = ({todos, todosFetched, getTodos, changePage} : Props) => {
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column'
-      }}
+    <Grid
+      container
+      direction='column'
+      alignItems='center'
     >
-      <Typography
-        variant='h2'
-        align='center'
-      >
-        Your Todos
-      </Typography>
-      <Stack
-        direction='row'
-        spacing={2}
-      >
-        <Button
-          variant='contained'
-          onClick={() => changePage('addTodo')}
-          color="success"
-          startIcon={<AddIcon />}
+      <Grid item xs={12}>
+        <Typography
+          variant='h2'
+          align='center'
         >
-          Add A Todo
-        </Button>
-        <Button
-          variant='contained'
-          onClick={() => setAllOrActive(allOrActive === 'active' ? 'all':'active')}
-          startIcon={<ReplayIcon />}
-        >
-          {allOrActive === 'all' ? 'Show Active Todos' : 'Show All Todos'}
-        </Button>
-      </Stack>
-      <Container
-        sx={{
-          padding: 2
-        }}
+          Your Todos
+        </Typography>
+      </Grid>
+      <Grid
+        container
+        spacing={1}
+        padding={1}
+        direction='column'
       >
-        {selectedTodos().length !== 0 ? null :
-          <Stack direction='column' alignItems='center' p={2} spacing={3}
+        <Grid item>
+          <Button
+            fullWidth
+            variant='contained'
+            onClick={() => changePage('addTodo')}
+            color="success"
+            startIcon={<AddIcon />}
           >
-            <Typography variant='h4'>
-              Whoops, it looks like there's nothing here
-            </Typography>
-            <Typography variant='h4'>
-              Click "ADD A TODO" to add a new todo
-            </Typography>
+            Add A Todo
+          </Button>
+
+        </Grid>
+        <Grid item>
+          <Button
+            fullWidth
+            variant='contained'
+            onClick={() => setAllOrActive(allOrActive === 'active' ? 'all':'active')}
+            startIcon={<ReplayIcon />}
+          >
+            {allOrActive === 'all' ? 'Show Active Todos' : 'Show All Todos'}
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid container direction='column'>
+        {selectedTodos().length !== 0 ? null :
+          <Grid
+            container
+            direction='column'
+            alignItems='center'
+            p={1}
+            spacing={2}
+            sx={{backgroundColor: 'lightblue'}}
+          >
+            <Grid item>
+              <Typography variant='h4'>
+                Whoops, it looks like there's nothing here
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant='h4'>
+                Click "ADD A TODO" to add a new todo
+              </Typography>
+            </Grid>
             {allOrActive === 'all' ? null :
               <>
-                <Typography align='center' variant='h6'>...or...</Typography>
-                <Typography align='center' variant='h4'>
-                  Click "SHOW ALL TODOS" to show the ones you have marked as done.
-                </Typography>
+                <Grid item>
+                  <Typography align='center' variant='h6'>...or...</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography align='center' variant='h4'>
+                    Click "SHOW ALL TODOS" to show the ones you have marked as done.
+                  </Typography>
+                </Grid>
               </>
             }
-          </Stack>
+          </Grid>
         }
         {selectedTodos().map(todo => <ShowTodo todo={todo} key={todo.id} />)}
-      </Container>
-    </Box>
+      </Grid>
+    </Grid>
   );
 };
 

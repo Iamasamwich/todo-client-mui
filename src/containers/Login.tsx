@@ -1,8 +1,7 @@
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
 
 import React, { useEffect, useState } from 'react';
 import { login } from '../actions/login';
@@ -10,7 +9,6 @@ import { changePage } from '../actions/page';
 
 import { connect } from 'react-redux';
 import { IloginBody } from '../interfaces';
-import styles from '../styles/styles';
 
 interface Props {
   login: (body : IloginBody) => void;
@@ -55,17 +53,26 @@ const Login = ({login, changePage} : Props) => {
   };
 
   return (
-    <Box sx={styles.main}>
-      <Typography
-        variant='h2'
-        align='center'
-      >
-        Login
-      </Typography>
-      <Box 
-        component='form'
+    <Grid 
+      container 
+      direction='column' 
+      alignItems='center'
+    >
+      <Grid item xs={12}>
+        <Typography
+          variant='h2'
+          align='center'
+        >
+          Login
+        </Typography>
+      </Grid>
+      <Grid 
+        container 
+        spacing={1} 
+        padding={1} 
+        direction='column' 
+        component='form' 
         onSubmit={handleSubmit}
-        sx={styles.form}
       >
         <TextField 
           variant='standard' 
@@ -83,26 +90,34 @@ const Login = ({login, changePage} : Props) => {
           onChange={e => setPword(e.target.value)}
           error={pwordError}
         />
-        <Stack
-          pt={2}
+        <Grid 
+          container 
+          direction='column' 
+          pt={2} 
           spacing={2}
         >
           {!anyError ?
-            <Button
-              variant='contained'
-              type='submit'
-              color='success'
-            >
-              Login
-            </Button>
+            <Grid item>
+              <Button
+                fullWidth
+                variant='contained'
+                type='submit'
+                color='success'
+              >
+                Login
+              </Button>
+            </Grid>
           : null}
-          <Button
-            variant='text'
-            onClick={() => changePage('createAccount')}
-            >Create An Account</Button>
-        </Stack>
-      </Box>
-    </Box>
+          <Grid item>
+            <Button
+              fullWidth
+              variant='text'
+              onClick={() => changePage('createAccount')}
+              >Create An Account</Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -60,14 +60,6 @@ const todoTheme = {
 
       }
     },
-    button: {
-      '@media (max-width: 767px)': {
-        fontSize: '0.6rem'
-      },
-      '@media (max-width: 500px)': {
-        fontSize: '0.38rem'
-      }
-    },
   }
 };
 

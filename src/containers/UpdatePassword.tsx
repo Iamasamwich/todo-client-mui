@@ -1,16 +1,13 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-
+import Grid from '@mui/material/Grid';
 
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 import { changePage } from '../actions/page';
 import { IupdatePwordBody } from '../interfaces';
 import { updatePassword } from '../actions/user';
-import styles from '../styles/styles';
 
 interface Props {
   changePage: (page : string) => void;
@@ -71,17 +68,25 @@ const UpdatePassword = ({changePage, updatePassword} : Props) => {
   };
 
   return (
-    <Box sx={styles.main}>
-      <Typography
-        variant='h2'
-        align='center'
-      >
-        Update Your Password
-      </Typography>
-      <Box
+    <Grid 
+      container
+      direction='column'
+    >
+      <Grid item xs={12}>
+        <Typography
+          variant='h2'
+          align='center'
+        >
+          Update Your Password
+        </Typography>
+      </Grid>
+      <Grid 
+        container
         component='form'
         onSubmit={handleSubmit}
-        sx={styles.form}
+        direction='column'
+        spacing={1}
+        padding={1}
       >
         <TextField
           variant='standard'
@@ -110,29 +115,37 @@ const UpdatePassword = ({changePage, updatePassword} : Props) => {
             error={confirmNewPwordError}
           />
         }
-        <Stack
+        <Grid
+          container
+          direction='column'
           pt={2}
           spacing={2}
         >
           {anyError ? null :
-            <Button
-              variant='contained'
-              color='success'
-              type='submit'
-            >
-              Update
-            </Button>
+            <Grid item>
+              <Button
+                fullWidth
+                variant='contained'
+                color='success'
+                type='submit'
+              >
+                Update
+              </Button>
+            </Grid>
           }
-          <Button
-            variant='contained'
-            color='warning'
-            onClick={() => changePage('home')}
-          >
-            Cancel
-          </Button>
-        </Stack>
-      </Box>
-    </Box>
+          <Grid item>
+            <Button
+              fullWidth
+              variant='contained'
+              color='warning'
+              onClick={() => changePage('home')}
+            >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
