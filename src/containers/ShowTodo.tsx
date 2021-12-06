@@ -48,7 +48,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) =
     } else {
       text = `${daysTilDue} days until due.`
     };
-    return <Typography variant='h5'>{text}</Typography>
+    return <Typography variant='h5' sx={{textAlign: 'center'}}>{text}</Typography>
   };
 
   const ShowStepsCount = () => {
@@ -63,7 +63,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) =
       });
       text = `${done.length}/${stepCount} steps completed`;
     };
-    return <Typography variant="h5">{text}</Typography>
+    return <Typography variant="h5" sx={{textAlign: 'center'}}>{text}</Typography>
   };
 
   const handleTodoDone = (todo : Itodo) => {
@@ -116,37 +116,47 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) =
 
         {/* left icons */}
         <Grid item xs={1}> 
-          <Stack direction='column' alignItems='center' spacing={2} padding={2}>
-            {todo.done ?
-              <ReplayIcon 
+          <Grid 
+            container 
+            direction='column' 
+            alignItems='center'
+          >
+            <Grid item>
+              {todo.done ?
+                <ReplayIcon 
                 fontSize='large' 
                 onClick={() => handleTodoDone(todo)}
-              />
-              :
-              <DoneIcon 
+                />
+                :
+                <DoneIcon 
                 fontSize='large' 
                 color='success' 
                 onClick={() => handleTodoDone(todo)}
-              />
-            }
-            {showSteps ? 
-              <MinimizeIcon 
+                />
+              }
+            </Grid>
+            <Grid item>
+              {showSteps ? 
+                <MinimizeIcon 
                 fontSize='large' 
                 onClick={() => setShowSteps(!showSteps)}
-              />
-              : 
-              <MenuIcon 
+                />
+                : 
+                <MenuIcon 
                 fontSize='large' 
                 onClick={() => setShowSteps(!showSteps)}
-              />
-            }
-          </Stack>
+                />
+              }
+            </Grid>
+          </Grid>
         </Grid>
 
         {/* center column */}
         <Grid 
           item
           xs={10}
+          pl={1}
+          pr={1}
         >
           <Grid 
             container
@@ -155,7 +165,7 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) =
             <Grid container padding={1}>
               <Grid 
                 item 
-                xs={8} 
+                xs={12} 
                 sx={{
                   display: 'flex', 
                   alignItems: 'center', 
@@ -166,28 +176,17 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) =
                   {todo.todo}
                 </Typography>
               </Grid>
-              <Grid item xs={4}>
-                <Grid container direction='column'>
+              <Grid item xs={12}>
+                <Grid container>
                   <Grid 
                     item
-                    sx={{
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent:'flex-end',
-                      paddingRight: 1, 
-                      textAlign: 'right'
-                    }}>
+                    xs={6}
+                  >
                     {ShowStepsCount()}
                   </Grid>
                   <Grid 
                     item
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center', 
-                      justifyContent: 'flex-end',
-                      paddingRight: 1,
-                      textAlign: 'right'
-                    }}
+                    xs={6}
                   >
                     {ShowDueDate()}
                   </Grid>
@@ -202,20 +201,30 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) =
 
         {/* right icons */}
         <Grid item xs={1}>
-          <Stack direction='column' alignItems='center' spacing={2} padding={2}>
-            <EditOutlinedIcon 
-              fontSize='large' 
-              onClick={() => editTodo(todo)}
-            />
-            <RotateLeftIcon 
-              onClick={() => resetTodo(String(todo.id))}
-            />
-            <DeleteForeverOutlinedIcon 
-              fontSize='large' 
-              color='error' 
-              onClick={() => setWarning(true)}
-            />
-          </Stack>
+          <Grid 
+            container 
+            direction='column' 
+            alignItems='center' 
+          >
+            <Grid item>
+              <EditOutlinedIcon 
+                fontSize='large' 
+                onClick={() => editTodo(todo)}
+              />
+            </Grid>
+            <Grid item>
+              <RotateLeftIcon 
+                onClick={() => resetTodo(String(todo.id))}
+              />
+            </Grid>
+            <Grid item>
+              <DeleteForeverOutlinedIcon 
+                fontSize='large' 
+                color='error' 
+                onClick={() => setWarning(true)}
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       <hr />
