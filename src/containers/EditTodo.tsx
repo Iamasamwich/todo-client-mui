@@ -77,79 +77,87 @@ const UpdateTodo = ({todoToUpdate, updateTodo, changePage} : Props) => {
   };
 
   return (
-    <Grid 
-      container 
-      direction='column' 
-      alignItems='center'
-    >
-      <Grid item xs={12}>
-        <Typography variant='h2'
-          align='center'
-        >
-          Update A Todo
-        </Typography>
-      </Grid>
-      <Grid
-        container
-        component='form'
-        direction='column'
-        spacing={1}
-        padding={1}
-        onSubmit={handleSubmit}
-      >
-        <TextField
-          sx={{
-            marginBottom: 2
-          }}
-          variant='standard'
-          label='Enter Todo Text'
-          value={todo}
-          onChange={handleTodoChange}
-          error={todoError}
-          autoFocus={true}
-        />
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DatePicker
-            label='Due Date'
-            value={dueDate}
-            openTo='day'
-            inputFormat='dd/MM/yyyy'
-            onChange={newValue => setDueDate(newValue as Date)}
-            renderInput={params => <TextField {...params} />}
-          />
-        </LocalizationProvider>
-        <Grid
-          container
+    <Grid container>
+      <Grid item xs={0} sm={2} md={3} />
+      <Grid item xs={12} sm={8} md={6}>
+        <Grid 
+          container 
           direction='column'
-          pt={2}
-          spacing={2}
+          component='form'
+          onSubmit={handleSubmit}
         >
-          {anyError ? null :
-            <Grid item>
-              <Button
-                fullWidth
-                variant='contained'
-                type='submit'
-                color='success'
-              >
-                Update Todo
-              </Button>
-            </Grid>
-          }
           <Grid item>
-            <Button
-              fullWidth
-              variant='contained'
-              color='warning'
-              onClick={() => changePage('home')}
+            <Typography variant='h2'
+              align='center'
             >
-              Cancel
-            </Button>
+              Update A Todo
+            </Typography>
+          </Grid>
+          <Grid item>
+            <TextField
+              fullWidth
+              sx={{
+                marginBottom: 2
+              }}
+              variant='standard'
+              label='Enter Todo Text'
+              value={todo}
+              onChange={handleTodoChange}
+              error={todoError}
+              autoFocus={true}
+            />
+          </Grid>
+          <Grid item>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label='Due Date'
+                value={dueDate}
+                openTo='day'
+                inputFormat='dd/MM/yyyy'
+                onChange={newValue => setDueDate(newValue as Date)}
+                renderInput={params => <TextField fullWidth {...params} />}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item>
+            <Grid container>
+              <Grid item xs={0} sm={2} md={3} />
+              <Grid item xs={12} sm={8} md={6}>
+                <Grid 
+                  container 
+                  direction='column'
+                  padding={2}
+                  spacing={2}
+                >
+                  {anyError ? null :
+                    <Grid item>
+                      <Button
+                        fullWidth
+                        variant='contained'
+                        type='submit'
+                        color='success'
+                      >
+                        Update Todo
+                      </Button>
+                    </Grid>
+                  }
+                  <Grid item>
+                    <Button
+                      fullWidth
+                      variant='contained'
+                      color='warning'
+                      onClick={() => changePage('home')}
+                    >
+                      Cancel
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
     </Grid>
-
   );
 };
 

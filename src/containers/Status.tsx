@@ -52,7 +52,7 @@ const Status = ({appStatus} : State) => {
       case 'loading':
         return <>
           <Typography variant='h4'>Loading</Typography>
-          <Box marginTop={2}sx={styles.spinner} />
+          <Box marginTop={2} sx={styles.spinner} />
         </>;
       default:
         return <Stack alignItems='center' spacing={2}>

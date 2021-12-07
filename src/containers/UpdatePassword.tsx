@@ -68,80 +68,91 @@ const UpdatePassword = ({changePage, updatePassword} : Props) => {
   };
 
   return (
-    <Grid 
-      container
-      direction='column'
-    >
-      <Grid item xs={12}>
-        <Typography
-          variant='h2'
-          align='center'
-        >
-          Update Your Password
-        </Typography>
-      </Grid>
-      <Grid 
-        container
-        component='form'
-        onSubmit={handleSubmit}
-        direction='column'
-        spacing={1}
-        padding={1}
-      >
-        <TextField
-          variant='standard'
-          label='Old Password'
-          type='password'
-          value={pword}
-          onChange={e => setPword(e.target.value)}
-          error={pwordError}
-          autoFocus={true}
-        />
-        <TextField 
-          variant='standard'
-          label='New Password'
-          type='password'
-          value={newPword}
-          onChange={e => setNewPword(e.target.value)}
-          error={newPwordError}
-        />
-        {newPwordError ? null :
-          <TextField 
-            variant='standard'
-            label='Confirm New Password'
-            type='password'
-            value={confirmNewPword}
-            onChange={e => setConfirmNewPword(e.target.value)}
-            error={confirmNewPwordError}
-          />
-        }
-        <Grid
+    <Grid container>
+      <Grid item xs={0} sm={2} md={3} />
+      <Grid item xs={12} sm={8} md={6}>
+        <Grid 
           container
           direction='column'
-          pt={2}
+          component='form'
+          onSubmit={handleSubmit}
+          padding={2}
           spacing={2}
         >
-          {anyError ? null :
+          <Grid item>
+            <Typography
+              variant='h2'
+              align='center'
+            >
+              Update Your Password
+            </Typography>
+          </Grid>
+          <Grid item>
+            <TextField
+              fullWidth
+              variant='standard'
+              label='Old Password'
+              type='password'
+              value={pword}
+              onChange={e => setPword(e.target.value)}
+              error={pwordError}
+              autoFocus={true}
+            />
+          </Grid>
+          <Grid item>
+            <TextField 
+              fullWidth
+              variant='standard'
+              label='New Password'
+              type='password'
+              value={newPword}
+              onChange={e => setNewPword(e.target.value)}
+              error={newPwordError}
+            />
+          </Grid>
+          {!newPwordError &&
             <Grid item>
-              <Button
+              <TextField 
                 fullWidth
-                variant='contained'
-                color='success'
-                type='submit'
-              >
-                Update
-              </Button>
+                variant='standard'
+                label='Confirm New Password'
+                type='password'
+                value={confirmNewPword}
+                onChange={e => setConfirmNewPword(e.target.value)}
+                error={confirmNewPwordError}
+              />
             </Grid>
           }
           <Grid item>
-            <Button
-              fullWidth
-              variant='contained'
-              color='warning'
-              onClick={() => changePage('home')}
-            >
-              Cancel
-            </Button>
+            <Grid container>
+              <Grid item xs={0} sm={2} md={3} />
+              <Grid item xs={12} sm={9} md={6}>
+                <Grid container direction='column' p={2} spacing={2}>
+                  {!anyError && 
+                    <Grid item>
+                      <Button
+                        fullWidth
+                        variant='contained'
+                        color='success'
+                        type='submit'
+                      >
+                        Update
+                      </Button>
+                    </Grid>
+                  }
+                  <Grid item>
+                    <Button
+                      fullWidth
+                      variant='contained'
+                      color='warning'
+                      onClick={() => changePage('home')}
+                    >
+                      Cancel
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

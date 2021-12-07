@@ -79,81 +79,107 @@ const CreateAccount = ({createAccount, changePage} : Props) => {
   };
 
   return (
-    <Grid container alignItems='center' direction='column'>
-      <Grid item xs={12}>
-        <Typography
-          variant='h2'
-          align='center'
-        >
-          Create Account
-        </Typography>
-      </Grid>
-      <Grid 
-        container
-        spacing={1}
-        padding={1}
-        direction='column'
-        component='form'
-        onSubmit={handleSubmit}
-      >
-        <TextField
-          variant='standard'
-          label='Name'
-          value={name}
-          onChange={e => setName(e.target.value)}
-          error={nameError}
-          autoFocus={true}
-        />
-        <TextField
-          variant='standard'
-          label='Email'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          error={emailError}
-        />
-        <TextField
-          variant='standard'
-          label='Password'
-          value={pword}
-          onChange={e => setPword(e.target.value)}
-          error={pwordError}
-          type='password'
-        />
-        <TextField
-          variant='standard'
-          label='Confirm Password'
-          value={confPword}
-          onChange={e => setConfPword(e.target.value)}
-          error={confPwordError}
-          type='password'
-        />
-        <Grid
-          container
-          direction='column'
-          pt={2}
-          spacing={2}
-        >
-          {!anyError ?
-            <Grid item>
-              <Button
-                fullWidth
-                variant='contained'
-                type='submit'
-                color='success'
-              >
-                Sign Up!
-              </Button>
-            </Grid>
-          : null}
+    <Grid container>
+      <Grid item xs={0} sm={2} md={3} />
+      <Grid item xs={12} sm={8} md={6}>
+        <Grid container direction='column'>
           <Grid item>
-            <Button
-              fullWidth
-              variant='contained'
-              color='warning'
-              onClick={() => changePage('home')}
-              >
-              Cancel
-            </Button>
+            <Typography
+              variant='h2'
+              align='center'
+            >
+              Create Account
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Grid 
+              container 
+              direction='column'
+              spacing={1}
+              padding={1}
+              component='form'
+              onSubmit={handleSubmit}
+            >
+              <Grid item>
+                <TextField
+                  fullWidth
+                  variant='standard'
+                  label='Name'
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  error={nameError}
+                  autoFocus={true}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  fullWidth
+                  variant='standard'
+                  label='Email'
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  error={emailError}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  fullWidth
+                  variant='standard'
+                  label='Password'
+                  value={pword}
+                  onChange={e => setPword(e.target.value)}
+                  error={pwordError}
+                  type='password'
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  fullWidth
+                  variant='standard'
+                  label='Confirm Password'
+                  value={confPword}
+                  onChange={e => setConfPword(e.target.value)}
+                  error={confPwordError}
+                  type='password'
+                />
+              </Grid>
+              <Grid item>
+                <Grid container>
+                  <Grid item xs={0} sm={2} md={3} />
+                  <Grid item xs={12} sm={8} md={6}>
+                    <Grid 
+                      container 
+                      direction='column'
+                      padding={2}
+                      spacing={2}
+                    >
+                      {!anyError ?
+                        <Grid item>
+                          <Button
+                            fullWidth
+                            variant='contained'
+                            type='submit'
+                            color='success'
+                          >
+                            Sign Up!
+                          </Button>
+                        </Grid>
+                      : null}
+                      <Grid item>
+                        <Button
+                          fullWidth
+                          variant='contained'
+                          color='warning'
+                          onClick={() => changePage('home')}
+                          >
+                          Cancel
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

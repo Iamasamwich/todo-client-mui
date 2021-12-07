@@ -113,7 +113,6 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) =
       </Modal>
 
       <Grid container>
-
         {/* left icons */}
         <Grid item xs={1}> 
           <Grid 
@@ -152,16 +151,8 @@ const ShowTodo = ({todo, updateTodo, deleteTodo, editTodo, resetTodo} : Props) =
         </Grid>
 
         {/* center column */}
-        <Grid 
-          item
-          xs={10}
-          pl={1}
-          pr={1}
-        >
-          <Grid 
-            container
-            direction='column'
-          >
+        <Grid item xs={10} pl={1} pr={1}>
+          <Grid container direction='column'>
             <Grid container padding={1}>
               <Grid 
                 item 

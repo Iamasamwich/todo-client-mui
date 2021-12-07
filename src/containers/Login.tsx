@@ -53,67 +53,82 @@ const Login = ({login, changePage} : Props) => {
   };
 
   return (
-    <Grid 
-      container 
-      direction='column' 
-      alignItems='center'
-    >
-      <Grid item xs={12}>
-        <Typography
-          variant='h2'
-          align='center'
-        >
-          Login
-        </Typography>
-      </Grid>
-      <Grid 
-        container 
-        spacing={1} 
-        padding={1} 
-        direction='column' 
-        component='form' 
-        onSubmit={handleSubmit}
-      >
-        <TextField 
-          variant='standard' 
-          label='Email'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          error={emailError}
-          autoFocus={true}
-        />
-        <TextField
-          variant='standard'
-          type='password'
-          label='Password'
-          value={pword}
-          onChange={e => setPword(e.target.value)}
-          error={pwordError}
-        />
+    <Grid container>
+      <Grid item xs={0} sm={2} md={3}/>
+      <Grid item xs={12} sm={8} md={6}>
         <Grid 
-          container 
-          direction='column' 
-          pt={2} 
-          spacing={2}
+          container
+          direction='column'
         >
-          {!anyError ?
+          <Grid 
+            container 
+            spacing={1} 
+            padding={1} 
+            direction='column' 
+            component='form' 
+            onSubmit={handleSubmit}
+          >
             <Grid item>
-              <Button
-                fullWidth
-                variant='contained'
-                type='submit'
-                color='success'
+              <Typography
+                variant='h2'
+                align='center'
               >
                 Login
-              </Button>
+              </Typography>
             </Grid>
-          : null}
-          <Grid item>
-            <Button
-              fullWidth
-              variant='text'
-              onClick={() => changePage('createAccount')}
-              >Create An Account</Button>
+            <Grid item>
+              <TextField 
+                fullWidth
+                variant='standard' 
+                label='Email'
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                error={emailError}
+                autoFocus={true}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                fullWidth
+                variant='standard'
+                type='password'
+                label='Password'
+                value={pword}
+                onChange={e => setPword(e.target.value)}
+                error={pwordError}
+              />
+            </Grid>
+            <Grid container>
+              <Grid item xs={0} sm={2} md={3} />
+              <Grid item xs={12} sm={8} md={6}>
+                <Grid 
+                  container 
+                  direction='column' 
+                  pt={2} 
+                  spacing={2}
+                >
+                  {!anyError ?
+                    <Grid item>
+                      <Button
+                        fullWidth
+                        variant='contained'
+                        type='submit'
+                        color='success'
+                      >
+                        Login
+                      </Button>
+                    </Grid>
+                  : null}
+                  <Grid item>
+                    <Button
+                      fullWidth
+                      variant='text'
+                      onClick={() => changePage('createAccount')}
+                      >Create An Account</Button>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
